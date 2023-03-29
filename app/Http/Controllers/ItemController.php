@@ -25,9 +25,8 @@ class ItemController extends Controller
     {
         // 商品一覧取得
         $items = Item
-            ::where('items.status', 'active')
-            ->select()
-            ->get();
+        ::orderBy('maker', 'asc')
+        ->get();
 
         return view('item.index', compact('items'));
     }

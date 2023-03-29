@@ -15,11 +15,13 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned()->index();
-            $table->string('name', 100)->index();
-            $table->string('status', 100)->default('active');
-            $table->smallInteger('type')->nullable();
-            $table->string('detail', 500)->nullable();
+            $table->string('maker', 100)->index();
+            $table->string('item_name', 100)->index();
+            $table->double('size', 4,4)->index();
+            $table->integer('price')->index();
+            $table->integer('stock')->index();
+            $table->string('item_image', 300)->nullable();
+            $table->string('remarks', 400)->nullable();
             $table->timestamps();
         });
     }

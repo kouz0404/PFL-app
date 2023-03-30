@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @extends('adminlte::page')
 
 @section('title', '商品登録')
@@ -30,7 +31,7 @@
                             <select  class="form-control" id="maker" name="maker" placeholder="メーカー">
                                 <option hidden>メーカーを選択してください</option>
                                 <option value="Nike">Nike</option>
-                                <option value="adisas">adidas</option>
+                                <option value="adidas">adidas</option>
                                 <option value="new balance">new balance</option>
                                 <option value="VANS">VANS</option>
                                 <option value="converse">converse</option>
@@ -52,12 +53,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="type">商品名</label>
+                            <label for="item_name">商品名</label>
                             <input type="text" class="form-control" id="item_name" name="item_name" placeholder="商品名">
                         </div>
 
                         <div class="form-group">
-                            <label for="siz">サイズ</label>
+                            <label for="size">サイズ</label>
                             <select class="form-control" id="size" name="size" >
                                 <option hidden>サイズを選択してください</option>
                                 <option value="21">21cm</option>
@@ -88,15 +89,21 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="price">備考</label>
+                            <label for="stock">在庫数</label>
+                            <input type="text" class="form-control" id="stock" name="stock" placeholder="在庫数">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="remarks">備考</label>
                             <textarea type="text" class="form-control" id="remarks" name="remarks" placeholder="備考"></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label for="file">商品画像</label>
-                            <input type="file" class="form-control-img" id="item-image" name="item-image" placeholder="画像">
+                            <label for="item_image">商品画像</label>
+                            <div class="form-control-img">
+                            <input type="file" class="" id="inputFile" name="item_image">
+                            </div>
                         </div>
-
 
                     </div>
 

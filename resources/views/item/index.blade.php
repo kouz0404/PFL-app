@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -25,18 +26,19 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>名前</th>
-                                <th>種別</th>
-                                <th>詳細</th>
+                                <th>メーカー</th>
+                                <th>商品名</th>
+                                <th>備考</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($items as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    <td>{{ $item->detail }}</td>
+                                    <td>{{ $item->maker }}</td>
+                                    <td>{{ $item->item_name }}</td>
+                                    <td>{{ $item->remarks }}</td>
+                                    <td><a href="items/detail/{{$item->item_name}}" class="btn btn-default">詳細画面</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -17,7 +17,7 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->string('maker', 100)->index();
             $table->string('item_name', 100)->index();
-            $table->double('size', 4,4)->index();
+            $table->float('size')->index();
             $table->integer('price')->index();
             $table->integer('stock')->index();
             $table->string('item_image', 300)->nullable();

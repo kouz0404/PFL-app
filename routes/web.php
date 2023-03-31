@@ -26,5 +26,6 @@ Route::prefix('items')->group(function () {
     Route::get('/add', [App\Http\Controllers\ItemController::class, 'add']);
     Route::post('/add', [App\Http\Controllers\ItemController::class, 'add']);
     Route::get('/detail/{item_name}', [App\Http\Controllers\DetailController::class, 'detail']);
-    Route::get('/detail', [App\Http\Controllers\DetailController::class, 'detail']);
+    Route::get('detail/edit/{id}', [App\Http\Controllers\EditController::class, 'edit']);
+    Route::post('/edit', [App\Http\Controllers\EditController::class, 'edit']);
 });

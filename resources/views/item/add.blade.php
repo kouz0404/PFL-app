@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @extends('adminlte::page')
 
 @section('title', '商品登録')
@@ -117,6 +116,7 @@
 @stop
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @stop
 
 @section('js')

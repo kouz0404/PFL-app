@@ -29,7 +29,7 @@
 
                         <div class="form-group">
                             <label for="maker">メーカー</label>
-                            <input type="text" class="form-control" id="maker" name="maker" value="{{$item->maker}}" >
+                            <input type="text" class="form-control" id="maker" name="maker" value="{{$item->maker}}" readonly >
                         </div>
 
                         <div class="form-group">

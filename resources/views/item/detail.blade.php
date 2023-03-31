@@ -23,23 +23,26 @@
             @foreach($items as $item)
             <div class="col">
                 <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <label for="maker">メーカー</label>
-                    <p class="card-text">{{$item->maker}}</p>
-                    <label for="maker">商品名</label>
-                    <p class="card-text">{{$item->item_name}}</p>
-                    <label for="maker">サイズ</label>
-                    <p class="card-text">{{$item->size}}</p>
-                    <label for="maker">値段</label>
-                    <p class="card-text">{{$item->price}}円</p>
-                    <label for="maker">在庫数</label>
-                    <p class="card-text">{{$item->stock}}</p>
-                    <label for="maker">備考</label>
-                    <p class="card-text">{{$item->remarks}}</p>                    
-                </div>
-                <a href="edit/{{$item->id}}" class="btn btn-default">編集</a>
-                <a href="{{ url('items/delete') }}" class="btn btn-outline-danger">削除</a>
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <label for="maker">メーカー</label>
+                        <p class="card-text">{{$item->maker}}</p>
+                        <label for="maker">商品名</label>
+                        <p class="card-text">{{$item->item_name}}</p>
+                        <label for="maker">サイズ</label>
+                        <p class="card-text">{{$item->size}}</p>
+                        <label for="maker">値段</label>
+                        <p class="card-text">{{$item->price}}円</p>
+                        <label for="maker">在庫数</label>
+                        <p class="card-text">{{$item->stock}}</p>
+                        <label for="maker">備考</label>
+                        <p class="card-text">{{$item->remarks}}</p>                    
+                    </div>
+                    <a href="edit/{{$item->id}}" class="btn btn-default">編集</a>
+                    <form action="delete/{{$item->id}}" method="POST">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-outline-danger w-100">削除</button>
+                    </form>
                 </div>
             </div>
             @endforeach

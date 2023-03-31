@@ -25,7 +25,6 @@
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>メーカー</th>
                                 <th>商品名</th>
                                 <th>備考</th>
@@ -34,7 +33,6 @@
                         <tbody>
                             @foreach ($items as $item)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
                                     <td>{{ $item->maker }}</td>
                                     <td>{{ $item->item_name }}</td>
                                     <td>{{ $item->remarks }}</td>

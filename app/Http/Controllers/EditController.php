@@ -19,8 +19,8 @@ class EditController extends Controller
 
             // 商品編集
             $items = Item::find($request->id);
-            $items->maker = $request->maker;
-           // $items->item_name = $request->item_name;
+            // $items->maker = $request->maker;
+            // $items->item_name = $request->item_name;
             //$items->size = $request->size;
             $items->price = $request->price;
             $items->stock = $request->stock;
@@ -36,5 +36,13 @@ class EditController extends Controller
 
         return view('item.edit', ['item' => $item ]);
     }
+
+    public function delete($id)
+    {
+        $item = Item::find($id);
+        $item->delete();
+        return redirect('items/detail/'.$item->item_name );
+    }
+
 }
 

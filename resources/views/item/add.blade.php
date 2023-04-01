@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <label for="maker">メーカー</label>
                             <select  class="form-control" id="maker" name="maker" placeholder="メーカー">
-                                <option hidden>メーカーを選択してください</option>
+                                <option hidden value="">メーカーを選択してください</option>
                                 <option value="Nike">Nike</option>
                                 <option value="adidas">adidas</option>
                                 <option value="new balance">new balance</option>
@@ -59,7 +59,7 @@
                         <div class="form-group">
                             <label for="size">サイズ</label>
                             <select class="form-control" id="size" name="size" >
-                                <option hidden>サイズを選択してください</option>
+                                <option hidden hidden value="">サイズを選択してください</option>
                                 <option value="21">21cm</option>
                                 <option value="21.5">21.5cm</option>
                                 <option value="22">22cm</option>

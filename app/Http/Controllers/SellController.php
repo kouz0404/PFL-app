@@ -4,23 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\Item;
+use App\Models\Sell;
 
-class ItemController extends Controller
+class SellController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * 商品一覧
-     */
     public function index()
     {
         // 商品一覧取得
@@ -28,56 +17,46 @@ class ItemController extends Controller
         ::orderBy('maker', 'asc')
         ->get();
 
-        return view('item.index', compact('items'));
+        $proceeds =Sell::where('user_id',Auth::id())
+        ->selectRaw('sum(number * price) as total')
+                    ->value('total');
+
+        return view('sell.index', compact('items','proceeds'));
     }
 
-    /**
-     * 商品登録
-     */
     public function add(Request $request)
     {
-        // POSTリクエストのとき
         if ($request->isMethod('post')) {
             // バリデーション
-            $this->validate($request, [
-            'maker' => 'required',
-            'item_name' => 'required',
-            'size' => 'required',
-            'price' => 'required',
-            'stock' => 'required',
-            ],
-            [
-            'maker.required' => 'メーカーは必須です',
-            'item_name.required' => '商品名は必須です',
-            'size.required' => 'サイズは必須です',
-            'price.required' => '値段は必須です',
-            'stock.required' => '在庫数は必須です',
-            ]); 
+            $this->validate($request, 
+            ['number' => 'required',],
+            ['number.required' => '数量は必須です',]); 
 
-            if($request->has('item_image')){
-            $image_extension = $request->file('item_image')->getClientOriginalExtension();
-            $path = $request->item_name.'_'.date('YmdHis').'.'.$image_extension;
-            $request->file('item_image')->storeAS('',$path,'public');
-            }else{
-            $path = null;
-            }
             // 商品登録
-            Item::create([
-                'maker' => $request->maker,
-                'item_name' => $request->item_name,
-                'size' => $request->size,
+            Sell::create([
+                'user_id' => Auth::id(),
+                'item_id' => $request->item_id,
+                'number' => $request->number,
                 'price' => $request->price,
-                'stock' => $request->stock,
-                'remarks' => $request->remarks,
-                'item_image' => $path,
             ]);
+            $number = $request->input('number');
+            $item = Item::find($request->item_id);
+            $currentstock = $item->stock;
+            $newstock = $currentstock - $number ;
+            $item->stock = $newstock;
+            $item->save();
 
-            return redirect('/items');
+            return redirect('sell/add')->with('flash_message', '登録が完了しました');
         }
 
-        return view('item.add');
-    }
 
+        // 商品一覧取得
+        $items = Item
+        ::orderBy('maker', 'asc')
+        ->get();
+
+        return view('sell.add', compact('items'));
+    }
 
     public function search(Request $request){
 
@@ -112,8 +91,11 @@ class ItemController extends Controller
 
         }
 
-        return view('item.index', compact('items','search'));
+        return view('sell.add', compact('items','search'));
     }
 
  
 }
+
+
+

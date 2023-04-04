@@ -23,7 +23,7 @@
             @foreach($items as $item)
             <div class="col">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src="/storage/{{$item->item_image}}" class="card-img-top-style" alt="...">
                     <div class="card-body">
                         <label for="maker">メーカー</label>
                         <p class="card-text">{{$item->maker}}</p>
@@ -53,6 +53,7 @@
 @stop
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @stop
 
 @section('js')

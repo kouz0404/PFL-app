@@ -3,16 +3,34 @@
 @section('title', '商品一覧')
 
 @section('content_header')
-    <h1>商品一覧</h1>
+    <h1>販売管理</h1>
 @stop
 
 @section('content')
+<div class="col-md-6 col-sm-6">
+      <div class="card card-stats">
+          <div class="card-header card-header-success card-header-icon">
+
+            <p class="card-category">総売上</p>
+            
+            <h3 class="card-title">{{$proceeds}}円</h3>
+            
+          </div>
+          <div class="card-footer">
+              <div class="stats ">
+              <button type="button" onclick="location.href='sell/add'" class="btn btn-outline-success w-100">販売登録</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">商品一覧</h3>
+                    <h3 class="card-title">販売管理</h3>
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
                             <div class="input-group-append">
@@ -53,7 +71,38 @@
             </div>
         </div>
     </div>
+
+
+
+    <div class="col-md-6">
+
+<div class="card card-primary card-outline">
+<div class="card-header">
+<h3 class="card-title">
+<i class="far fa-chart-bar"></i>
+Bar Chart
+</h3>
+<div class="card-tools">
+<button type="button" class="btn btn-tool" data-card-widget="collapse">
+<i class="fas fa-minus"></i>
+</button>
+<button type="button" class="btn btn-tool" data-card-widget="remove">
+<i class="fas fa-times"></i>
+</button>
+</div>
+</div>
+<div class="card-body">
+<div id="bar-chart" style="height: 300px;"></div>
+</div>
+
+</div>
+ 
+
+<div class="card card-primary card-outline">
+<div class="card-header">
+<h3 class="card-title">
 @stop
+
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">

@@ -16,3 +16,8 @@
 .search{
  width: 40%;
 }
+
+.card-img-top-style{
+  aspect-ratio: 1 / 1;
+
+}

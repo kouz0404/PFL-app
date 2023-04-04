@@ -36,4 +36,9 @@ class Item extends Model
      */
     protected $casts = [
     ];
+
+    public function sells()
+    {
+      return $this->hasMany('App\Models\Sell');
+    }
 }

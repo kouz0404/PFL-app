@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => '商品管理',
+    'title' => 'Sneaker Check',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,12 +45,23 @@ return [
     |
     */
 
-    'logo' => '<b>商品管理</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Sneaker Check</b>',
+    'logo_img' => 'vendor/adminlte/dist/img/sneakers.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => '商品管理',
+
+    'preloader' => [
+        'enabled' => true,
+        'img' => [
+            'path' => 'vendor/adminlte/dist/img/sneakers.png',
+            'alt' => 'AdminLTE Preloader Image',
+            'effect' => 'animation__shake',
+            'width' => 60,
+            'height' => 60,
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -228,7 +239,13 @@ return [
         [
             'text' => '商品一覧',
             'url'  => 'items',
-            'icon' => 'fas fa-gamepad',
+            'icon' => '	fas fa-sitemap',
+        ],
+
+        [
+            'text' => '販売管理',
+            'url'  => 'sell',
+            'icon' => 'fas fa-calculator',
         ],
 
         // AdminLTEデフォルト

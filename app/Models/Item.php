@@ -12,10 +12,13 @@ class Item extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
-        'name',
-        'type',
-        'detail',
+        'maker',
+        'item_name',
+        'size',
+        'price',
+        'stock',
+        'remarks',
+        'item_image',
     ];
 
     /**
@@ -33,4 +36,9 @@ class Item extends Model
      */
     protected $casts = [
     ];
+
+    public function sells()
+    {
+      return $this->hasMany('App\Models\Sell');
+    }
 }

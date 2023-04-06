@@ -25,8 +25,8 @@ class ItemController extends Controller
     {
         // 商品一覧取得
         $items = Item
-        ::orderBy('maker', 'asc')
-        ->get();
+        ::orderBy('maker', 'asc')->paginate(30);
+
 
         return view('item.index', compact('items'));
     }

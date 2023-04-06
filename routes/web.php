@@ -38,4 +38,6 @@ Route::prefix('sell')->group(function () {
     Route::get('/', [App\Http\Controllers\SellController::class, 'index']);
     Route::get('/add', [App\Http\Controllers\SellController::class, 'add']);
     Route::post('/add', [App\Http\Controllers\SellController::class, 'add']);
+    Route::get('/goal', [App\Http\Controllers\SellController::class, 'goal']);
+    Route::post('/goal', [App\Http\Controllers\SellController::class, 'goal']);
 });

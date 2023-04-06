@@ -11,9 +11,9 @@
       <div class="card card-stats">
           <div class="card-header card-header-success card-header-icon">
 
-            <p class="card-category">総売上</p>
+            <p class="card-category">本日総売上</p>
             
-            <h3 class="card-title">{{$proceeds}}円</h3>
+            <h3 class="card-title">{{$proceeds_d}}円</h3>
             
           </div>
           <div class="card-footer">
@@ -22,15 +22,113 @@
               </div>
           </div>
       </div>
-  </div>
+</div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">個人売上</h3>
+            <div class="card-tools">
+                <div class="input-group input-group-sm">
+                    <div class="input-group-append">
+                        <a href="{{ url('sell/goal') }}" class="btn btn-default">売上目標登録</a>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="chart-container" >
+        <canvas id="myChart"></canvas>
+    </div>
 
-    <div class="row">
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['前々月','前月', '今月', ],
+            datasets: [{
+                label: '個人売上（円）',
+                data: [ <?php echo $proceeds_2m;?> , <?php echo $proceeds_1m;?>, <?php echo $proceeds_m;?>,],
+                backgroundColor: 'rgb(0,123,255)',
+                
+            },{
+                label: '目標売上（円）',
+                data: [ <?php echo $own_goal_2m;?> , <?php echo $own_goal_1m;?>, <?php echo $own_goal_m;?>,],
+                backgroundColor: 'red',
+                
+            }]
+        },
+        options: {
+  
+            scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+        }
+    });
+
+</script>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">店舗売上</h3>
+            <div class="card-tools">
+                <div class="input-group input-group-sm">
+                    <div class="input-group-append">
+                        <a href="{{ url('sell/goal') }}" class="btn btn-default">売上目標登録</a>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="chart-container" >
+        <canvas id="allChart"></canvas>
+    </div>
+</div>
+
+<script>
+    var ctx = document.getElementById('allChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['前々月','前月', '今月', ],
+            datasets: [{
+                label: '店舗売上（円）',
+                data: [ <?php echo $all_proceeds_2m;?> , <?php echo $all_proceeds_1m;?>, <?php echo $all_proceeds_m;?>,],
+                backgroundColor: 'rgb(0,123,255)',
+                
+            },{
+                label: '店舗目標売上（円）',
+                data: [ <?php echo $all_goal_2m;?> , <?php echo $all_goal_1m;?>, <?php echo $all_goal_m;?>,],
+                backgroundColor: 'red',
+                
+            }]
+        },
+        options: {
+  
+            scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+        }
+    });
+
+</script>
+
+<div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">販売管理</h3>
+                    <h3 class="card-title">販売した商品　(最新10件)</h3>
+                    
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
                             <div class="input-group-append">
@@ -39,12 +137,20 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="tab-wrap">
+
+                <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB-01">日</label>
+
+                <div class="tab-content">
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
-                            <tr>
+                            <tr class="sell-log">
                                 <th>メーカー</th>
                                 <th>商品名</th>
+                                <th>単価</th>
+                                <th>足数</th>
                                 <th class="search">
                                     <form method="GET" action="{{url('search')}}">
                                     <div class="input-group">
@@ -57,50 +163,117 @@
                                 </th>
                             </tr>
                         </thead>
+
                         <tbody>
-                            @foreach ($items->unique('item_name') as $item)
+                            @foreach ($sells as $sell)
                                 <tr>
-                                    <td>{{ $item->maker }}</td>
-                                    <td>{{ $item->item_name }}</td>
-                                    <td><a href="items/detail/{{$item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                    <td>{{ $sell->item->maker }}</td>
+                                    <td>{{ $sell->item->item_name }}</td>
+                                    <td>{{ $sell->item->price}}円</td>
+                                    <td>{{ $sell->number}}</td>
+                                    <td><a href="items/detail/{{$sell->item->item_name}}" class="btn btn-default">詳細画面</a></td>
                                 </tr>
                             @endforeach
+                            <tr>
+                                <td colspan="5"><button type="button" onclick="location.href='sell/add'" class="btn btn-block btn-outline-primary btn-xs w-100">more</button></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
+                </div>
+                
+                <input id="TAB-02" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-02">月</label>
+                <div class="tab-content">
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                            <tr class="sell-log">
+                                <th>メーカー</th>
+                                <th>商品名</th>
+                                <th>単価</th>
+                                <th>足数</th>
+                                <th class="search">
+                                    <form method="GET" action="{{url('search')}}">
+                                    <div class="input-group">
+                                    <input type="text" id="txt-search" class="form-control input-group-prepend" name="search" placeholder="検索ワード"></input>
+                                    <span class="input-group-btn input-group-append">
+                                        <button type="submit" id="btn-search" class="btn btn-primary"><i class="fas fa-search"></i> 検索</buttom>
+                                    </span>
+                                    </div>
+                                    </form>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($sells_m as $sell_m)
+                                <tr>
+                                    <td>{{ $sell_m->item->maker }}</td>
+                                    <td>{{ $sell_m->item->item_name }}</td>
+                                    <td>{{ $sell_m->item->price}}円</td>
+                                    <td>{{ $sell_m->number}}</td>
+                                    <td><a href="items/detail/{{$sell->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                </tr>
+                            @endforeach
+                            <tr>
+                                <td colspan="5"><button type="button" onclick="location.href='sell/add'" class="btn btn-block btn-outline-primary btn-xs w-100">more</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+
+                <input id="TAB-03" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-03"> 年 </label>
+                <div class="tab-content">
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                            <tr class="sell-log">
+                                <th>メーカー</th>
+                                <th>商品名</th>
+                                <th>単価</th>
+                                <th>足数</th>
+                                <th class="search">
+                                    <form method="GET" action="{{url('search')}}">
+                                    <div class="input-group">
+                                    <input type="text" id="txt-search" class="form-control input-group-prepend" name="search" placeholder="検索ワード"></input>
+                                    <span class="input-group-btn input-group-append">
+                                        <button type="submit" id="btn-search" class="btn btn-primary"><i class="fas fa-search"></i> 検索</buttom>
+                                    </span>
+                                    </div>
+                                    </form>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($sells_y as $sell_y)
+                                <tr>
+                                    <td>{{ $sell_y->item->maker }}</td>
+                                    <td>{{ $sell_y->item->item_name }}</td>
+                                    <td>{{ $sell_y->item->price}}円</td>
+                                    <td>{{ $sell_y->number}}</td>
+                                    <td><a href="items/detail/{{$sell->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                </tr>
+                            @endforeach
+                            <tr>
+                                <td colspan="5"><button type="button" onclick="location.href='sell/add'" class="btn btn-block btn-outline-primary btn-xs w-100">more</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+
+
+
+                </div>
             </div>
         </div>
-    </div>
+    </div>    
 
 
 
-    <div class="col-md-6">
 
-<div class="card card-primary card-outline">
-<div class="card-header">
-<h3 class="card-title">
-<i class="far fa-chart-bar"></i>
-Bar Chart
-</h3>
-<div class="card-tools">
-<button type="button" class="btn btn-tool" data-card-widget="collapse">
-<i class="fas fa-minus"></i>
-</button>
-<button type="button" class="btn btn-tool" data-card-widget="remove">
-<i class="fas fa-times"></i>
-</button>
-</div>
-</div>
-<div class="card-body">
-<div id="bar-chart" style="height: 300px;"></div>
-</div>
-
-</div>
- 
-
-<div class="card card-primary card-outline">
-<div class="card-header">
-<h3 class="card-title">
 @stop
 
 

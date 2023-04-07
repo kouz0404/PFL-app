@@ -21,3 +21,39 @@
   aspect-ratio: 1 / 1;
 
 }
+
+.sell-log{
+  border-top: 1px solid rgba(0,0,0,.125);
+}
+
+
+
+/*販売商品タブ*/
+.tab-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+.tab-label {
+    color: rgb(255, 255, 255);
+    background:  rgba(0,0,0,.125);
+    float: left;
+    margin: 0;
+    margin-left: 5px;
+    order: -1;
+
+}
+.tab-content {
+    width: 100%;
+    display: none;
+}
+/* アクティブなタブ */
+.tab-switch:checked+.tab-label {
+    background: #007BFF;
+}
+.tab-switch:checked+.tab-label+.tab-content {
+     display: block;
+}
+/* ラジオボタン非表示 */
+.tab-switch {
+    display: none;
+}

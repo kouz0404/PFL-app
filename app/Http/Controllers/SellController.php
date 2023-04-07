@@ -7,21 +7,109 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Sell;
+use App\Models\Goal;
+use Carbon\Carbon;
+use Illuminate\Pagination\Paginator;
 
 class SellController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        // 商品一覧取得
-        $items = Item
-        ::orderBy('maker', 'asc')
-        ->get();
+        $today = Carbon::today();
+        $month = date('m');
+        $lastmonth = date('m', strtotime('-1 month'));
+        $lasttwomonths = date('m', strtotime('-2 months'));
+        $year = date('Y');
 
-        $proceeds =Sell::where('user_id',Auth::id())
+
+        // そのユーザーが売った商品一覧取得
+        $sells = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDate('created_at', $today)->orderByDesc('created_at')
+        ->with('item')->get();
+
+        $sells_m = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $month)->orderByDesc('created_at')
+        ->with('item')->get();
+
+        $sells_y = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->orderByDesc('created_at')
+        ->with('item')->paginate(10);
+
+        //個人の売上について
+        //日の売上を取得
+        $proceeds_d =Sell::where('user_id',Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDate('created_at', $today)
+        ->selectRaw('sum(number * price) as total')
+                    ->value('total');
+        
+        //月の売上を取得
+        $proceeds_m =Sell::where('user_id',Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $month)
         ->selectRaw('sum(number * price) as total')
                     ->value('total');
 
-        return view('sell.index', compact('items','proceeds'));
+        //月の目標を取得
+        $own_goal_m =Goal::where('class',1)->where('user_id',Auth::id())->whereYear('date', $year)->whereMonth('date', $month)
+        ->value('goal');
+
+        //前月の売上を取得
+        $proceeds_1m =Sell::where('user_id',Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $lastmonth)
+        ->selectRaw('sum(number * price) as total')
+                    ->value('total');
+
+        //前月の目標を取得
+        $own_goal_1m =Goal::where('class',1)->where('user_id',Auth::id())->whereYear('date', $year)->whereMonth('date', $lastmonth)
+        ->value('goal');
+
+        //前々月の売上を取得
+        $proceeds_2m =Sell::where('user_id',Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $lasttwomonths)
+        ->selectRaw('sum(number * price) as total')
+                    ->value('total');
+
+        //前々月の目標を取得
+        $own_goal_2m =Goal::where('class',1)->where('user_id',Auth::id())->whereYear('date', $year)->whereMonth('date', $lasttwomonths)
+        ->value('goal');
+
+        //年の売上を取得(今回は使っていないが準備だけ)
+        //$proceeds_y =Sell::where('user_id',Auth::id())->whereYear('created_at', $year)
+        //->selectRaw('sum(number * price) as total')
+                    //->value('total');
+
+        
+        //店舗の売上について
+        //月の売上を取得
+        $all_proceeds_m =Sell::whereYear('created_at', $year)->whereMonth('created_at', $month)
+        ->selectRaw('sum(number * price) as total')
+                    ->value('total');
+        //月の目標を取得
+         $all_goal_m =Goal::where('class',0)->whereYear('date', $year)->whereMonth('date', $month)
+        ->value('goal');
+
+        //前月の売上を取得
+        $all_proceeds_1m =Sell::whereYear('created_at', $year)->whereMonth('created_at', $lastmonth)
+        ->selectRaw('sum(number * price) as total')
+                    ->value('total');
+        
+        //前月の目標を取得
+         $all_goal_1m =Goal::where('class',0)->whereYear('date', $year)->whereMonth('date', $lastmonth)
+        ->value('goal');
+
+        //前々月の売上を取得
+        $all_proceeds_2m =Sell::whereYear('created_at', $year)->whereMonth('created_at', $lasttwomonths)
+        ->selectRaw('sum(number * price) as total')
+                    ->value('total');
+
+        //前々月の目標を取得
+         $all_goal_2m =Goal::where('class',0)->whereYear('date', $year)->whereMonth('date', $lasttwomonths)
+        ->value('goal');
+
+        return view('sell.index', 
+        compact('sells','sells_m','sells_y',
+        'proceeds_d','proceeds_m','proceeds_1m','proceeds_2m',
+        'all_proceeds_m','all_proceeds_1m','all_proceeds_2m',
+        'all_goal_m','all_goal_1m','all_goal_2m','own_goal_m','own_goal_1m','own_goal_2m'));
     }
 
     public function add(Request $request)
@@ -39,6 +127,7 @@ class SellController extends Controller
                 'number' => $request->number,
                 'price' => $request->price,
             ]);
+            //商品登録と同時に売った分を在庫から引く
             $number = $request->input('number');
             $item = Item::find($request->item_id);
             $currentstock = $item->stock;
@@ -93,6 +182,96 @@ class SellController extends Controller
 
         return view('sell.add', compact('items','search'));
     }
+
+
+    //目標金額について
+
+    public function goal(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            // バリデーション
+            $this->validate($request, 
+            ['goal' => 'required|regex:/^[0-9]+$/',
+             'date' => 'required',
+             'class' => 'required',],
+            ['goal.required' => '金額は必須です',
+            'goal.regex' => '金額は半角数字で入力してください',
+            'date.required' => '年月は必須です',
+            'class.required' => '区分は必須です',]); 
+
+            $id=Auth::id();
+
+            // 商品登録
+            Goal::create([
+                'user_id' => $id,
+                'goal' => $request->goal,
+                'date' => $request->date.'-01',
+                'class' => $request->class,
+            ]);
+
+
+            return redirect('sell')->with('flash_message', '登録が完了しました');
+        }
+
+
+        // 商品一覧取得
+        $items = Item
+        ::orderBy('maker', 'asc')
+        ->get();
+
+        return view('sell.goal', compact('items'));
+    }
+
+
+    public function sell_items($id)
+    {
+        $today = Carbon::today();
+        $month = date('m');
+        $lastmonth = date('m', strtotime('-1 month'));
+        $lasttwomonths = date('m', strtotime('-2 months'));
+        $year = date('Y');
+
+
+        if($id == 1){
+
+            // そのユーザーが売った商品一覧取得
+            $sells = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDate('created_at', $today)->orderByDesc('created_at')
+            ->with('item')->paginate(10);
+
+            $d='本日';
+
+
+            return view('sell.sell-items', compact('sells','d'));
+
+        }elseif($id == 2){
+
+            // そのユーザーが売った商品一覧取得
+            $sells = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $month)->orderByDesc('created_at')
+            ->with('item')->paginate(10);
+    
+            $d='月';
+    
+            return view('sell.sell-items', compact('sells','d'));
+
+        }elseif($id == 3){
+
+            // そのユーザーが売った商品一覧取得
+            $sells = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->orderByDesc('created_at')
+            ->with('item')->paginate(10);
+
+            $d='年間';
+
+            return view('sell.sell-items', compact('sells','d'));
+        }
+
+    }
+
+
+
+
+    
+
+
 
  
 }

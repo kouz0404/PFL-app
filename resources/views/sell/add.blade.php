@@ -64,7 +64,7 @@
                                     <td><i class="fa fa-plus"></i><td>
                                 </tr>
                                 <tr class="expandable-body">
-                                <td colspan="4">
+                                <td colspan="5">
                                     <table class="table">
                                     <thead>
                                         <tr>

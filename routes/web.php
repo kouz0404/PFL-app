@@ -34,6 +34,7 @@ Route::prefix('items')->group(function () {
 Route::get('/search', [App\Http\Controllers\ItemController::class, 'search'])->name('search');
 Route::get('/search/sell', [App\Http\Controllers\SellController::class, 'search'])->name('search');
 
+
 Route::prefix('sell')->group(function () {
     Route::get('/', [App\Http\Controllers\SellController::class, 'index']);
     Route::get('/add', [App\Http\Controllers\SellController::class, 'add']);

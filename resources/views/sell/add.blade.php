@@ -88,13 +88,15 @@
                                     @endif
                                         </form>
                                         </tr>
-                                    @endforeach
-                                        
+                                    @endforeach                                      
                                     </tbody>
                                     </table>
                                 </td>
                                 </tr>
                             @endforeach
+                                <tr>
+                                    <td colspan="5">{{ $items->links() }}</td>
+                                </tr>
                         </tbody>
                     </table>
                 </div>

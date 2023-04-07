@@ -1,0 +1,21 @@
+/*HOME*/
+.first-view{
+    background-image: url(/img/aaa.jpg);
+    background-size: cover;
+    width: 100%;
+    aspect-ratio: 16 / 8;
+    background-position: center;
+    
+    }
+    
+    .content-wrapper>.content {
+      padding: 0 ;
+    }
+    
+    .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+      width: 100%;
+      padding-right: 0px;
+      padding-left: 0px;
+      margin-right: auto;
+      margin-left: auto;
+    }

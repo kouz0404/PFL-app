@@ -142,7 +142,7 @@ class SellController extends Controller
         // 商品一覧取得
         $items = Item
         ::orderBy('maker', 'asc')
-        ->get();
+        ->paginate(15);
 
         return view('sell.add', compact('items'));
     }

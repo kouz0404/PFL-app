@@ -47,6 +47,9 @@
                                     <td><a href="items/detail/{{$item->item_name}}" class="btn btn-default">詳細画面</a></td>
                                 </tr>
                             @endforeach
+                                <tr>
+                                    <td colspan="3">{{ $items->links() }}</td>
+                                </tr>
                         </tbody>
                     </table>
                 </div>
@@ -73,16 +76,8 @@
                             <tr>
                                 <th>メーカー</th>
                                 <th>商品名</th>
-                                <th class="search">
-                                    <form method="GET" action="{{url('search')}}">
-                                    <div class="input-group">
-                                    <input type="text" id="txt-search" class="form-control input-group-prepend" name="search" placeholder="検索ワード"></input>
-                                    <span class="input-group-btn input-group-append">
-                                        <button type="submit" id="btn-search" class="btn btn-primary"><i class="fas fa-search"></i> 検索</buttom>
-                                    </span>
-                                    </div>
-                                    </form>
-                                </th>
+                                <th>在庫数</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -91,6 +86,7 @@
                                     @if($item->stock <= 5)
                                     <td>{{ $item->maker }}</td>
                                     <td>{{ $item->item_name }}</td>
+                                    <td>{{ $item->stock }}</td>
                                     <td><a href="items/detail/{{$item->item_name}}" class="btn btn-default">詳細画面</a></td>
                                     @endif
                                 </tr>

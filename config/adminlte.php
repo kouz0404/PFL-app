@@ -239,13 +239,13 @@ return [
         [
             'text' => '商品一覧',
             'url'  => 'items',
-            'icon' => '	fas fa-sitemap',
+            'icon' => 'fas fa-sitemap',
         ],
 
         [
             'text' => '販売管理',
             'url'  => 'sell',
-            'icon' => 'fas fa-calculator',
+            'icon' => 'far fa-clipboard',
         ],
 
         // AdminLTEデフォルト

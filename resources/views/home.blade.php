@@ -3,15 +3,33 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+
+
+<div class="first-view">
+<h1>aaaaaaaaaa</h1>
+<p>aaaaaaaa</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 @stop
 
 @section('css')
     {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 @stop
 
 @section('js')

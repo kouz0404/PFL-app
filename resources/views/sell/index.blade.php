@@ -140,132 +140,109 @@
 
                 <div class="tab-wrap">
 
-                <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB-01">日</label>
+                    <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB-01">日</label>
 
-                <div class="tab-content">
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap">
-                        <thead>
-                            <tr class="sell-log">
-                                <th>メーカー</th>
-                                <th>商品名</th>
-                                <th>単価</th>
-                                <th>足数</th>
-                                <th class="search">
-                                    <form method="GET" action="{{url('search')}}">
-                                    <div class="input-group">
-                                    <input type="text" id="txt-search" class="form-control input-group-prepend" name="search" placeholder="検索ワード"></input>
-                                    <span class="input-group-btn input-group-append">
-                                        <button type="submit" id="btn-search" class="btn btn-primary"><i class="fas fa-search"></i> 検索</buttom>
-                                    </span>
-                                    </div>
-                                    </form>
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach ($sells as $sell)
-                                <tr>
-                                    <td>{{ $sell->item->maker }}</td>
-                                    <td>{{ $sell->item->item_name }}</td>
-                                    <td>{{ $sell->item->price}}円</td>
-                                    <td>{{ $sell->number}}</td>
-                                    <td><a href="items/detail/{{$sell->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                    <div class="tab-content">
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr class="sell-log">
+                                    <th>メーカー</th>
+                                    <th>商品名</th>
+                                    <th>単価</th>
+                                    <th>足数</th>
+                                    <th>追加日</th>
+                                    <th class="search"></th>
                                 </tr>
-                            @endforeach
-                            <tr>
-                                <td colspan="5"><button type="button" onclick="location.href='sell/add'" class="btn btn-block btn-outline-primary btn-xs w-100">more</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                </div>
-                
-                <input id="TAB-02" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-02">月</label>
-                <div class="tab-content">
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap">
-                        <thead>
-                            <tr class="sell-log">
-                                <th>メーカー</th>
-                                <th>商品名</th>
-                                <th>単価</th>
-                                <th>足数</th>
-                                <th class="search">
-                                    <form method="GET" action="{{url('search')}}">
-                                    <div class="input-group">
-                                    <input type="text" id="txt-search" class="form-control input-group-prepend" name="search" placeholder="検索ワード"></input>
-                                    <span class="input-group-btn input-group-append">
-                                        <button type="submit" id="btn-search" class="btn btn-primary"><i class="fas fa-search"></i> 検索</buttom>
-                                    </span>
-                                    </div>
-                                    </form>
-                                </th>
-                            </tr>
-                        </thead>
+                            </thead>
 
-                        <tbody>
-                            @foreach ($sells_m as $sell_m)
+                            <tbody>
+                                @foreach ($sells as $sell)
+                                    <tr>
+                                        <td>{{ $sell->item->maker }}</td>
+                                        <td>{{ $sell->item->item_name }}</td>
+                                        <td>{{ $sell->item->price}}円</td>
+                                        <td>{{ $sell->number}}</td>
+                                        <td>{{ $sell->created_at->format('Y-m-d')}}</td>
+                                        <td><a href="items/detail/{{$sell->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                    </tr>
+                                @endforeach
                                 <tr>
-                                    <td>{{ $sell_m->item->maker }}</td>
-                                    <td>{{ $sell_m->item->item_name }}</td>
-                                    <td>{{ $sell_m->item->price}}円</td>
-                                    <td>{{ $sell_m->number}}</td>
-                                    <td><a href="items/detail/{{$sell->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                    <td colspan="6"><button type="button" onclick="location.href='sell/sell_items/1'" class="btn btn-block btn-outline-primary btn-xs w-100">more</button></td>
                                 </tr>
-                            @endforeach
-                            <tr>
-                                <td colspan="5"><button type="button" onclick="location.href='sell/add'" class="btn btn-block btn-outline-primary btn-xs w-100">more</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                    
+                    <input id="TAB-02" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-02">月</label>
+                    <div class="tab-content">
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr class="sell-log">
+                                    <th>メーカー</th>
+                                    <th>商品名</th>
+                                    <th>単価</th>
+                                    <th>足数</th>
+                                    <th>追加日</th>
+                                    <th class="search">
+                                    </th>
+                                </tr>
+                            </thead>
 
-                <input id="TAB-03" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-03"> 年 </label>
-                <div class="tab-content">
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap">
-                        <thead>
-                            <tr class="sell-log">
-                                <th>メーカー</th>
-                                <th>商品名</th>
-                                <th>単価</th>
-                                <th>足数</th>
-                                <th class="search">
-                                    <form method="GET" action="{{url('search')}}">
-                                    <div class="input-group">
-                                    <input type="text" id="txt-search" class="form-control input-group-prepend" name="search" placeholder="検索ワード"></input>
-                                    <span class="input-group-btn input-group-append">
-                                        <button type="submit" id="btn-search" class="btn btn-primary"><i class="fas fa-search"></i> 検索</buttom>
-                                    </span>
-                                    </div>
-                                    </form>
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach ($sells_y as $sell_y)
+                            <tbody>
+                                @foreach ($sells_m as $sell_m)
+                                    <tr>
+                                        <td>{{ $sell_m->item->maker }}</td>
+                                        <td>{{ $sell_m->item->item_name }}</td>
+                                        <td>{{ $sell_m->item->price}}円</td>
+                                        <td>{{ $sell_m->number}}</td>
+                                        <td>{{$sell_m->created_at->format('Y-m-d')}}</td>
+                                        <td><a href="items/detail/{{$sell_m->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                    </tr>
+                                @endforeach
                                 <tr>
-                                    <td>{{ $sell_y->item->maker }}</td>
-                                    <td>{{ $sell_y->item->item_name }}</td>
-                                    <td>{{ $sell_y->item->price}}円</td>
-                                    <td>{{ $sell_y->number}}</td>
-                                    <td><a href="items/detail/{{$sell->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                    <td colspan="6"><button type="button" onclick="location.href='sell/sell_items/2'" class="btn btn-block btn-outline-primary btn-xs w-100">more</button></td>
                                 </tr>
-                            @endforeach
-                            <tr>
-                                <td colspan="5"><button type="button" onclick="location.href='sell/add'" class="btn btn-block btn-outline-primary btn-xs w-100">more</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
 
+                    <input id="TAB-03" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-03"> 年 </label>
+                    <div class="tab-content">
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr class="sell-log">
+                                    <th>メーカー</th>
+                                    <th>商品名</th>
+                                    <th>単価</th>
+                                    <th>足数</th>
+                                    <th>追加日</th>
+                                    <th class="search"></th>
+                                </tr>
+                            </thead>
 
-
+                            <tbody>
+                                @foreach ($sells_y as $sell_y)
+                                    <tr>
+                                        <td>{{ $sell_y->item->maker }}</td>
+                                        <td>{{ $sell_y->item->item_name }}</td>
+                                        <td>{{ $sell_y->item->price}}円</td>
+                                        <td>{{ $sell_y->number}}</td>
+                                        <td>{{$sell_y->created_at->format('Y-m-d')}}</td>
+                                        <td><a href="items/detail/{{$sell_y->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                    </tr>
+                                @endforeach
+                                <tr>
+                                    <td colspan="6"><button type="button" onclick="location.href='sell/sell_items/3'" class="btn btn-block btn-outline-primary btn-xs w-100">more</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -40,4 +40,5 @@ Route::prefix('sell')->group(function () {
     Route::post('/add', [App\Http\Controllers\SellController::class, 'add']);
     Route::get('/goal', [App\Http\Controllers\SellController::class, 'goal']);
     Route::post('/goal', [App\Http\Controllers\SellController::class, 'goal']);
+    Route::get('/sell_items/{id}', [App\Http\Controllers\SellController::class, 'sell_items']);
 });

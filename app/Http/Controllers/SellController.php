@@ -13,6 +13,13 @@ use Illuminate\Pagination\Paginator;
 
 class SellController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $today = Carbon::today();
@@ -30,7 +37,7 @@ class SellController extends Controller
         ->with('item')->get();
 
         $sells_y = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->orderByDesc('created_at')
-        ->with('item')->get();
+        ->with('item')->paginate(10);
 
         //個人の売上について
         //日の売上を取得
@@ -214,6 +221,52 @@ class SellController extends Controller
 
         return view('sell.goal', compact('items'));
     }
+
+
+    public function sell_items($id)
+    {
+        $today = Carbon::today();
+        $month = date('m');
+        $lastmonth = date('m', strtotime('-1 month'));
+        $lasttwomonths = date('m', strtotime('-2 months'));
+        $year = date('Y');
+
+
+        if($id == 1){
+
+            // そのユーザーが売った商品一覧取得
+            $sells = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDate('created_at', $today)->orderByDesc('created_at')
+            ->with('item')->paginate(10);
+
+            $d='本日';
+
+
+            return view('sell.sell-items', compact('sells','d'));
+
+        }elseif($id == 2){
+
+            // そのユーザーが売った商品一覧取得
+            $sells = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $month)->orderByDesc('created_at')
+            ->with('item')->paginate(10);
+    
+            $d='月';
+    
+            return view('sell.sell-items', compact('sells','d'));
+
+        }elseif($id == 3){
+
+            // そのユーザーが売った商品一覧取得
+            $sells = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->orderByDesc('created_at')
+            ->with('item')->paginate(10);
+
+            $d='年間';
+
+            return view('sell.sell-items', compact('sells','d'));
+        }
+
+    }
+
+
 
 
     

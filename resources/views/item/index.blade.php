@@ -21,6 +21,20 @@
                         </div>
                     </div>
                 </div>
+                <!--スマホ用の検索窓-->
+                <div class="card-header-sm m-1">
+                    <div class="card-tools-sm">
+                        <form method="GET" action="{{url('search')}}">
+                            <div class="input-group">
+                                <input type="text" id="txt-search" class="form-control input-group-prepend" name="search" placeholder="検索ワード"></input>
+                                <span class="input-group-btn input-group-append">
+                                <button type="submit" id="btn-search" class="btn btn-primary"><i class="fas fa-search"></i> 検索</buttom>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>

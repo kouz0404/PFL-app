@@ -50,12 +50,12 @@
             datasets: [{
                 label: '個人売上（円）',
                 data: [ <?php echo $proceeds_2m;?> , <?php echo $proceeds_1m;?>, <?php echo $proceeds_m;?>,],
-                backgroundColor: 'rgb(0,123,255)',
+                backgroundColor: 'rgba(0,123,255,0.5)',
                 
             },{
                 label: '目標売上（円）',
                 data: [ <?php echo $own_goal_2m;?> , <?php echo $own_goal_1m;?>, <?php echo $own_goal_m;?>,],
-                backgroundColor: 'red',
+                backgroundColor: 'rgba(255,0,0,0.5)',
                 
             }]
         },
@@ -66,7 +66,11 @@
                 ticks: {
                     beginAtZero: true
                 }
-            }]
+            }],           
+             xAxes: [{
+               categoryPercentage: 0.5, 
+               barPercentage: 0.5,      
+                   }]
         }
         }
     });
@@ -100,12 +104,12 @@
             datasets: [{
                 label: '店舗売上（円）',
                 data: [ <?php echo $all_proceeds_2m;?> , <?php echo $all_proceeds_1m;?>, <?php echo $all_proceeds_m;?>,],
-                backgroundColor: 'rgb(0,123,255)',
+                backgroundColor: 'rgba(0,123,255,0.5)',
                 
             },{
                 label: '店舗目標売上（円）',
                 data: [ <?php echo $all_goal_2m;?> , <?php echo $all_goal_1m;?>, <?php echo $all_goal_m;?>,],
-                backgroundColor: 'red',
+                backgroundColor: 'rgba(255,0,0,0.5)',
                 
             }]
         },
@@ -113,10 +117,14 @@
   
             scales: {
             yAxes: [{
-                ticks: {
+                    ticks: {
                     beginAtZero: true
-                }
-            }]
+                            }
+                    }],
+            xAxes: [{
+               categoryPercentage: 0.5, 
+               barPercentage: 0.5,      
+                   }]
         }
         }
     });

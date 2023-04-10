@@ -1,4 +1,5 @@
 /*HOME*/
+/*スライドなし
 .first-view{
     background-image: url(/img/aaa.jpg);
     background-size: cover;
@@ -7,7 +8,21 @@
     background-position: center;
     
     }
+    */
+
+    @import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP');
+
+    .navbar-white {
+        background-color: rgba(244, 250, 227, 0.5);
+        color: #1f2d3d;
+    }
     
+    .wrapper{
+        overflow: hidden;
+        background-color:rgba(244, 250, 227, 0.5);
+      }
+
+    /*共通の設定のパディングマージンを削除*/
     .content-wrapper>.content {
       padding: 0 ;
     }
@@ -19,3 +34,248 @@
       margin-right: auto;
       margin-left: auto;
     }
+
+
+
+    .topicks{
+        border-radius: 20px;
+        padding: 5px;
+        margin-top: 5px;
+        height: 130px;/*スクロールの高さ*/
+        width: 90%;
+        overflow-y: scroll;
+        background-color: rgba(197, 197, 197, 0.3);
+        margin: auto;
+        padding: auto;
+    }
+
+    .topicks li{
+        margin-bottom: 10px;
+        height: 60px;
+    }
+
+    .information{
+       justify-content: center;
+       margin-top: 110px;
+    }
+
+    h2 {
+       margin-bottom: 30px;
+        font-weight: bold;
+        text-align: center;
+        font-family: 'Noto Serif JP', sans-serif;
+
+    }
+
+    p {
+        font-family: 'Noto Serif JP', sans-serif;
+    }
+
+
+    .newarrival{
+        margin-top: 100px;
+    }
+    .newarrive-box{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+       
+    }
+
+    .new-item-1{
+        width: 30%;
+        margin: 10px 10px;
+    }
+
+    .new-item-1 img{
+        border-radius: 10px;
+        width: 100%;
+        aspect-ratio:2 / 3;
+
+    }
+    .new-item-1 img:hover{
+        filter: opacity(70%);
+
+    }
+
+    .tools{
+        margin-top: 100px;
+    }
+
+
+    .tool-list{
+        display: flex;
+        margin-top: 50px;
+    }
+
+    .tool{
+        width: 50%;
+        padding-left: 70px;
+        padding-right: 70px;
+        
+    }
+
+    .tool-1{
+        position: relative;
+        
+    }
+
+    .tool img{
+        width: 100%;
+        aspect-ratio:1 / 1;
+        border-radius: 10px;
+    }
+
+    .hover-mask {
+        align-items: center; /* テキストの中央揃え */
+        background: rgba(0, 0, 0, .8); /* マスクの色(黒の50%) */
+        bottom: 0;
+        color: #fff; /* テキストの色 */
+        display: flex; /* テキストの中央揃え */
+        height: auto;
+        justify-content: center; /* テキストの中央揃え */
+        left: 0;
+        opacity: 0; /* 最初は透明(非表示) */
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: opacity .6s ease; /* ゆっくりopacityのみへ変化させる */
+        border-radius: 10px;
+      }
+      .hover-mask:hover {
+        opacity: 1; /* hoverしたら透過しない(表示させる) */
+      }
+      .hover-mask p {
+        width: 80%; /* テキストを横幅いっぱいにならないようにする */
+        font-weight: bold;
+        font-size: 2rem;
+        text-align: center;
+      }
+
+
+
+
+
+
+    
+
+/*ファーストビューの画像設定*/
+    .img-frame{
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        margin: 0 auto;
+        }
+        .img-01, .img-02, .img-03{
+        position: absolute;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        }
+        .img-01{
+        background-image: url('/img/aaa.jpg');
+        animation: slide-animation-01 24s infinite;
+        }
+        .img-02{
+        background-image: url('/img/haikei2.jpg');
+        animation: slide-animation-02 24s infinite;
+        }
+        .img-03{
+        background-image: url('/img/haikei3.jpg');
+        animation: slide-animation-03 24s infinite;
+        }
+        @keyframes slide-animation-01 {
+        0% {opacity: 1; transform: scale(1.0);}
+        30% {opacity: 1;}
+        40% {opacity: 0; transform: scale(1.15);}
+        90% {opacity: 0}
+        100% {opacity: 1; transform: scale(1.0);}
+        }
+        @keyframes slide-animation-02 {
+        0% {opacity: 0;}
+        30% {opacity: 0; transform: scale(1.1);}
+        40% {opacity: 1;}
+        60% {opacity: 1;}
+        70% {opacity: 0; transform: scale(1.0);}
+        100% {opacity: 0;}
+        }
+        @keyframes slide-animation-03 {
+        0% {opacity: 0;}
+        60% {opacity: 0;  transform: scale(1.0);}
+        70% {opacity: 1;}
+        90% {opacity: 1;}
+        100% {opacity: 0; transform: scale(1.1);}
+        }
+
+        /*フェードインの設定*/
+
+        /* fadeUp */
+
+.fadeUp{
+    animation-name:fadeUpAnime;
+    animation-duration:7s;
+    animation-fill-mode:forwards;
+    opacity:0;
+    }
+    
+    @keyframes fadeUpAnime{
+      from {
+        opacity: 0;
+      
+      }
+    
+      to {
+        opacity: 1;
+      transform: translateY(0);
+      }
+    }
+
+    .fadeUp{
+        animation-name:fadeUpAnime2;
+        animation-duration:8s;
+        animation-fill-mode:forwards;
+        opacity:0;
+        }
+        
+        @keyframes fadeUpAnime2{
+          from {
+            opacity: 0;
+          
+          }
+        
+          to {
+            opacity: 1;
+          transform: translateY(0);
+          }
+        }
+    
+    
+    /* スクロールをしたら出現する要素にはじめに透過0を指定　*/
+     
+     .information{
+        opacity: 0;
+    }
+
+    .new-item-1 {
+        opacity : 0;
+        transition : all 3s;
+      }
+        
+      .new-item-1.active{
+        opacity : 1;
+      }
+
+ @media screen and (max-width: 400px) {
+    .tool{
+        width: 50%;
+        padding-left: 10px;
+        padding-right: 10px;
+        
+    }
+
+      }

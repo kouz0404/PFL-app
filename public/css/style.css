@@ -73,3 +73,31 @@
   list-style: none;
   border-radius: 0.25rem;
 }
+
+/*スマホのみ*/
+.cardheder-smartphone{
+  display: none;
+}
+
+.card-tools-sm{
+  display: none;
+}
+
+
+
+@media screen and (max-width: 600px) {
+.search{
+  display: none;
+}
+
+.cardheder-smartphone{
+  display: block;
+}
+
+.card-tools-sm{
+  display: block;
+}
+
+    }
+
+

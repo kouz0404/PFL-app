@@ -41,5 +41,11 @@ Route::prefix('sell')->group(function () {
     Route::post('/add', [App\Http\Controllers\SellController::class, 'add']);
     Route::get('/goal', [App\Http\Controllers\SellController::class, 'goal']);
     Route::post('/goal', [App\Http\Controllers\SellController::class, 'goal']);
+    Route::get('/myhistory', [App\Http\Controllers\SellController::class, 'history']);
+    Route::get('/allhistory', [App\Http\Controllers\SellController::class, 'allhistory']);
+    Route::get('/myhistory/edit/{id}', [App\Http\Controllers\SellController::class, 'history_edit']);
+    Route::get('/myhistory/delete/{id}', [App\Http\Controllers\SellController::class, 'delete']);
+    Route::post('/myhistory/edit', [App\Http\Controllers\SellController::class, 'history_edit']);
+    //Route::post('/goal', [App\Http\Controllers\SellController::class, 'goal']);
     Route::get('/sell_items/{id}', [App\Http\Controllers\SellController::class, 'sell_items']);
 });

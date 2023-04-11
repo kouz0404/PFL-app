@@ -245,7 +245,13 @@ return [
         [
             'text' => '販売管理',
             'url'  => 'sell',
-            'icon' => 'far fa-clipboard',
+            'icon' => 'far fa-money-bill-alt',
+        ],
+
+        [
+            'text' => 'お知らせ入力',
+            'url'  => 'information',
+            'icon' => 'far fa-fw fa-file',
         ],
 
         // AdminLTEデフォルト

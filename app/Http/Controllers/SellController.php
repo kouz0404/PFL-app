@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Sell;
@@ -142,7 +143,7 @@ class SellController extends Controller
         // 商品一覧取得
         $items = Item
         ::orderBy('maker', 'asc')
-        ->paginate(15);
+        ->paginate(20);
 
         return view('sell.add', compact('items'));
     }
@@ -189,14 +190,20 @@ class SellController extends Controller
     public function goal(Request $request)
     {
         if ($request->isMethod('post')) {
+            //input type monthはdate型に直接入らないため、日を手動で追加
+             $request->merge([
+                'date' => $request->date.'-01',
+            ]);
+        
             // バリデーション
             $this->validate($request, 
             ['goal' => 'required|regex:/^[0-9]+$/',
-             'date' => 'required',
+             'date' => 'required|unique:goals',
              'class' => 'required',],
             ['goal.required' => '金額は必須です',
             'goal.regex' => '金額は半角数字で入力してください',
             'date.required' => '年月は必須です',
+            'date.unique' => 'その月の目標は既に入力済みです',
             'class.required' => '区分は必須です',]); 
 
             $id=Auth::id();
@@ -205,7 +212,7 @@ class SellController extends Controller
             Goal::create([
                 'user_id' => $id,
                 'goal' => $request->goal,
-                'date' => $request->date.'-01',
+                'date' => $request->date,
                 'class' => $request->class,
             ]);
 
@@ -221,6 +228,66 @@ class SellController extends Controller
 
         return view('sell.goal', compact('items'));
     }
+
+    //個人売上目標の一覧表示
+    public function history(Request $request)
+    {
+        $historys =Goal::where('class',1)->where('user_id',Auth::id())->orderByDesc('date')->paginate(3);
+        return view('sell.history', compact('historys'));
+    }
+
+    //個人売上目標の一覧表示
+    public function allhistory(Request $request)
+    {
+        $historys =Goal::where('class',0)->orderByDesc('date')->paginate(3);
+        return view('sell.history', compact('historys'));
+    }
+
+        //売上目標の編集削除
+    public function history_edit(Request $request)
+    {
+        if ($request->isMethod('post')) {
+        //input type monthはdate型に直接入らないため、日を手動で追加
+            $request->merge([
+            'date' => $request->date.'-01',
+            ]);
+            // バリデーション
+            $this->validate($request, 
+                ['goal' => 'required|regex:/^[0-9]+$/',],
+                ['goal.required' => '金額は必須です',
+                'goal.regex' => '金額は半角数字で入力してください',]); 
+    
+    
+            // 商品登録
+            $goal = Goal::find($request->id);
+            $goal->goal = $request->goal;
+            $goal->date = $request->date;
+            $goal->save();
+    
+            if($goal->class == 1){
+            return redirect('sell/myhistory')->with('flash_message', '登録が完了しました');
+            }
+            return redirect('sell/allhistory')->with('flash_message', '登録が完了しました');
+            }
+
+        $id = $request->id;
+        $history_detail =Goal::find($id);
+    
+        return view('sell.history-edit', compact('history_detail'));
+    }
+    
+    public function delete(Request $request)
+        {
+            $id = $request->id;
+            $history_detail =Goal::find($id);
+            $history_detail->delete();
+
+            if($history_detail->class == 1){
+            return redirect('sell/myhistory');}
+
+            return redirect('sell/allhistory');
+
+        }
 
 
     public function sell_items($id)

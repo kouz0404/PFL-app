@@ -31,6 +31,9 @@
         <h3 class="card-title">個人売上</h3>
             <div class="card-tools">
                 <div class="input-group input-group-sm">
+                    <div class="input-group-append mx-1">
+                        <a href="{{ url('sell/myhistory') }}" class="btn btn-default">履歴</a>
+                    </div>
                     <div class="input-group-append">
                         <a href="{{ url('sell/goal') }}" class="btn btn-default">売上目標登録</a>
                     </div>
@@ -84,6 +87,9 @@
         <h3 class="card-title">店舗売上</h3>
             <div class="card-tools">
                 <div class="input-group input-group-sm">
+                    <div class="input-group-append mx-1">
+                        <a href="{{ url('sell/allhistory') }}" class="btn btn-default">履歴</a>
+                    </div>
                     <div class="input-group-append">
                         <a href="{{ url('sell/goal') }}" class="btn btn-default">売上目標登録</a>
                     </div>

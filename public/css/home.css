@@ -41,7 +41,7 @@
         border-radius: 20px;
         padding: 5px;
         margin-top: 5px;
-        height: 130px;/*スクロールの高さ*/
+        height: 140px;/*スクロールの高さ*/
         width: 90%;
         overflow-y: scroll;
         background-color: rgba(197, 197, 197, 0.3);
@@ -50,8 +50,7 @@
     }
 
     .topicks li{
-        margin-bottom: 10px;
-        height: 60px;
+        margin-top: 10px;
     }
 
     .information{

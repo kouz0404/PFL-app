@@ -250,7 +250,7 @@ return [
 
         [
             'text' => 'お知らせ入力',
-            'url'  => 'information',
+            'url'  => 'notice',
             'icon' => 'far fa-fw fa-file',
         ],
 

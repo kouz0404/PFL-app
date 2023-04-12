@@ -25,10 +25,9 @@
         <h2>Information</h2>
         <div class="topicks">
             <ul>
-                <li>ニュースニュースニュースニュースニュースニュースニュースニュースニュースニュースニュース</li>
-                <li>ニュースニュースニュースニュースニュースニュースニュースニュースニュースニュースニュース</li>
-                <li>ニュースニュースニュースニュースニュースニュースニュースニュースニュースニュースニュース</li>
-                <li>ニュースニュースニュースニュースニュースニュースニュースニュースニュースニュースニュース</li>
+                @foreach($notices as $notice)
+                <a href="/notice/list/{{$notice->id}}"><li>{{$notice->title}}/{{ \Carbon\Carbon::parse($notice->updated_at)->format('m月d日') }}更新</li></a>
+                @endforeach
             </ul>
         </div>
     </div>

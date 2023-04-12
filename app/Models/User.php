@@ -46,4 +46,10 @@ class User extends Authenticatable
     {
       return $this->hasMany('App\Models\Sell');
     }
+
+    public function notices()
+    {
+      return $this->hasMany('App\Models\Notice');
+    }
 }
+

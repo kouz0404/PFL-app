@@ -49,3 +49,18 @@ Route::prefix('sell')->group(function () {
     //Route::post('/goal', [App\Http\Controllers\SellController::class, 'goal']);
     Route::get('/sell_items/{id}', [App\Http\Controllers\SellController::class, 'sell_items']);
 });
+
+Route::prefix('notice')->group(function () {
+    Route::get('/', [App\Http\Controllers\NoticeController::class, 'index']);
+    Route::post('/', [App\Http\Controllers\NoticeController::class, 'add']);
+    Route::get('/list/{id}', [App\Http\Controllers\NoticeController::class, 'list']);
+    Route::get('/list/delete/{id}', [App\Http\Controllers\NoticeController::class, 'delete']);   
+    Route::get('/list/edit/{id}', [App\Http\Controllers\NoticeController::class, 'edit']);
+    Route::post('/list/edit/{id}', [App\Http\Controllers\NoticeController::class, 'edit']);
+});
+
+
+
+
+
+

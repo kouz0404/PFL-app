@@ -142,14 +142,6 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">販売した商品　(最新10件)</h3>
-                    
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm">
-                            <div class="input-group-append">
-                                <a href="{{ url('items/add') }}" class="btn btn-default">商品登録</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="tab-wrap">

@@ -24,7 +24,7 @@ class ItemController extends Controller
     public function index()
     {
         // 商品一覧取得
-        $items = Item::orderBy('maker', 'asc')->paginate(10);
+        $items = Item::orderBy('maker', 'asc')->distinct()->paginate(10);
 
 
         return view('item.index', compact('items'));

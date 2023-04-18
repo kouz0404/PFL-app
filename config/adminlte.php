@@ -243,6 +243,12 @@ return [
         ],
 
         [
+            'text' => '在庫残りわずか',
+            'url'  => 'less_items',
+            'icon' => 'far fa-hand-point-down',
+        ],
+
+        [
             'text' => '販売管理',
             'url'  => 'sell',
             'icon' => 'far fa-money-bill-alt',

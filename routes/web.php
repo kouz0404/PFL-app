@@ -31,6 +31,10 @@ Route::prefix('items')->group(function () {
     Route::post('/edit', [App\Http\Controllers\EditController::class, 'edit']);
     Route::post('detail/delete/{id}', [App\Http\Controllers\EditController::class, 'delete']);
 });
+
+    Route::get('/less_items', [App\Http\Controllers\Less_itemController::class, 'index']);
+
+
 Route::get('/search', [App\Http\Controllers\ItemController::class, 'search'])->name('search');
 Route::get('/search/sell', [App\Http\Controllers\SellController::class, 'search'])->name('search');
 

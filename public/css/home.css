@@ -237,7 +237,7 @@
 
     .fadeUp2{
         animation-name:fadeUpAnime2;
-        animation-duration:3s;
+        animation-duration:6s;
         animation-fill-mode:forwards;
         opacity:0;
         }

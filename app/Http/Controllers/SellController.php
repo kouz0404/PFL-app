@@ -32,13 +32,13 @@ class SellController extends Controller
 
         // そのユーザーが売った商品一覧取得
         $sells = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDate('created_at', $today)->orderByDesc('created_at')
-        ->with('item')->get();
+        ->get();
 
         $sells_m = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $month)->orderByDesc('created_at')
-        ->with('item')->get();
+        ->get();
 
         $sells_y = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->orderByDesc('created_at')
-        ->with('item')->paginate(10);
+        ->paginate(10);
 
         //個人の売上について
         //日の売上を取得
@@ -316,7 +316,7 @@ class SellController extends Controller
 
             // そのユーザーが売った商品一覧取得
             $sells = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $month)->orderByDesc('created_at')
-            ->with('item')->paginate(10);
+            ->paginate(10);
     
             $d='月';
     

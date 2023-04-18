@@ -38,12 +38,12 @@
                         <tbody>
                             @foreach ($sells as $sell)
                                 <tr>
-                                    <td>{{ $sell->item->maker }}</td>
-                                    <td>{{ $sell->item->item_name }}</td>
-                                    <td>{{ $sell->item->price}}円</td>
+                                    <td>{{ $sell->maker }}</td>
+                                    <td>{{ $sell->item_name }}</td>
+                                    <td>{{ $sell->price}}円</td>
                                     <td>{{ $sell->number}}</td>
                                     <td>{{$sell->created_at->format('Y-m-d')}}</td>
-                                    <td><a href="items/detail/{{$sell->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                    <td><a href="items/detail/{{$sell->item_name}}" class="btn btn-default">詳細画面</a></td>
                                 </tr>
                             @endforeach
                             <tr>

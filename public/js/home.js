@@ -50,10 +50,10 @@ function fadeAnime2(){
 
     // ふわっ
     $('.tool').each(function(){ //fadeUpTriggerというクラス名が
-      var elemPos = $(this).offset().top;//要素より、50px上の
+      var elemPos = $(this).offset().top -30;//要素より、50px上の
       var scroll = $(window).scrollTop();
       var windowHeight = $(window).height();
-      if (scroll >= elemPos - windowHeight + 50){
+      if (scroll >= elemPos - windowHeight){
       $(this).addClass('fadeUp2');// 画面内に入ったらfadeUpというクラス名を追記
       }
       });

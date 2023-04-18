@@ -36,7 +36,7 @@ function fadeAnime(){
             if (scroll > position - windowHeight + 200){
                 $(function(){
                     $('.new-item-1').each(function(i){
-                        $(this).delay(i * 1000).queue(function(){
+                        $(this).delay(i * 800).queue(function(){
                             $(this).addClass('active');
                         });
                     });
@@ -50,10 +50,10 @@ function fadeAnime2(){
 
     // ふわっ
     $('.tool').each(function(){ //fadeUpTriggerというクラス名が
-      var elemPos = $(this).offset().top-50;//要素より、50px上の
+      var elemPos = $(this).offset().top;//要素より、50px上の
       var scroll = $(window).scrollTop();
       var windowHeight = $(window).height();
-      if (scroll >= elemPos - windowHeight){
+      if (scroll >= elemPos - windowHeight + 50){
       $(this).addClass('fadeUp2');// 画面内に入ったらfadeUpというクラス名を追記
       }
       });

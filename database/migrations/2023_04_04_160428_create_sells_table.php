@@ -18,6 +18,8 @@ class CreateSellsTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('item_id')->unsigned();
             $table->integer('number')->index();
+            $table->string('maker', 100)->index();
+            $table->string('item_name', 100)->index();
             $table->integer('price')->index();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

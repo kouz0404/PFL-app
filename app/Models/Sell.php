@@ -10,6 +10,8 @@ class Sell extends Model
     use HasFactory;
 
     protected $fillable = [
+        'maker',
+        'item_name',
         'number',
         'user_id',
         'item_id',

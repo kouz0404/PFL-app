@@ -126,6 +126,8 @@ class SellController extends Controller
                 'user_id' => Auth::id(),
                 'item_id' => $request->item_id,
                 'number' => $request->number,
+                'maker' => $request->maker,
+                'item_name' => $request->item_name,
                 'price' => $request->price,
             ]);
             //商品登録と同時に売った分を在庫から引く

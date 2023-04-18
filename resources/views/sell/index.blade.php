@@ -165,12 +165,12 @@
                             <tbody>
                                 @foreach ($sells as $sell)
                                     <tr>
-                                        <td>{{ $sell->item->maker }}</td>
-                                        <td>{{ $sell->item->item_name }}</td>
+                                        <td>{{ $sell->maker }}</td>
+                                        <td>{{ $sell->item_name }}</td>
                                         <td>{{ $sell->price}}円</td>
                                         <td>{{ $sell->number}}</td>
                                         <td>{{ $sell->created_at->format('Y-m-d')}}</td>
-                                        <td><a href="items/detail/{{$sell->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                        <td><a href="items/detail/{{$sell->item_name}}" class="btn btn-default">詳細画面</a></td>
                                     </tr>
                                 @endforeach
                                 <tr>
@@ -200,12 +200,12 @@
                             <tbody>
                                 @foreach ($sells_m as $sell_m)
                                     <tr>
-                                        <td>{{ $sell_m->item->maker }}</td>
-                                        <td>{{ $sell_m->item->item_name }}</td>
+                                        <td>{{ $sell_m->maker }}</td>
+                                        <td>{{ $sell_m->item_name }}</td>
                                         <td>{{ $sell_m->price}}円</td>
                                         <td>{{ $sell_m->number}}</td>
                                         <td>{{$sell_m->created_at->format('Y-m-d')}}</td>
-                                        <td><a href="items/detail/{{$sell_m->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                        <td><a href="items/detail/{{$sell_m->item_name}}" class="btn btn-default">詳細画面</a></td>
                                     </tr>
                                 @endforeach
                                 <tr>
@@ -234,12 +234,12 @@
                             <tbody>
                                 @foreach ($sells_y as $sell_y)
                                     <tr>
-                                        <td>{{ $sell_y->item->maker }}</td>
-                                        <td>{{ $sell_y->item->item_name }}</td>
+                                        <td>{{ $sell_y->maker }}</td>
+                                        <td>{{ $sell_y->item_name }}</td>
                                         <td>{{ $sell_y->price}}円</td>
                                         <td>{{ $sell_y->number}}</td>
                                         <td>{{$sell_y->created_at->format('Y-m-d')}}</td>
-                                        <td><a href="items/detail/{{$sell_y->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                        <td><a href="items/detail/{{$sell_y->item_name}}" class="btn btn-default">詳細画面</a></td>
                                     </tr>
                                 @endforeach
                                 <tr>

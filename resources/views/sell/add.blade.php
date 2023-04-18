@@ -99,6 +99,8 @@
                                         <td><input type="hidden" class="form-control w-25" id="number" name="price" value="{{$detail->price}}" placeholder="数量">{{$detail->price}}</td>
                                         <td><input type="text" class="form-control w-60" id="number" name="number" placeholder="数量"></td>
                                         <td><input type="hidden" name="item_id" value="{{$detail->id}}"></td>
+                                        <td><input type="hidden" name="maker" value="{{$detail->maker}}"></td>
+                                        <td><input type="hidden" name="item_name" value="{{$detail->item_name}}"></td>
                                         <td><button class="btn btn-primary" type="submit">登録</button></td>
                                     @endif
                                         </form>

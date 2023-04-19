@@ -62,7 +62,7 @@
                                 </tr>
                             @endforeach
                                 <tr>
-                                    <td colspan="3">{{ $items->links() }}</td>
+                                    <td colspan="3">{{ $items->appends(request()->query())->links() }}</td>
                                 </tr>
                         </tbody>
                     </table>

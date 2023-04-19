@@ -13,14 +13,6 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">{{$d}}の販売した商品</h3>
-                    
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm">
-                            <div class="input-group-append">
-                                <a href="{{ url('items/add') }}" class="btn btn-default">商品登録</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
@@ -43,11 +35,11 @@
                                     <td>{{ $sell->price}}円</td>
                                     <td>{{ $sell->number}}</td>
                                     <td>{{$sell->created_at->format('Y-m-d')}}</td>
-                                    <td><a href="items/detail/{{$sell->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                    <td><a href="/sell/sell_items/delete/{{$sell->id}}" class="btn btn-outline-danger">削除</a></td>
                                 </tr>
                             @endforeach
                             <tr>
-                                <td colspan="6">{{ $sells->links() }}</td>
+                                <td colspan="7">{{ $sells->links() }}</td>
                             </tr>
                         </tbody>
                     </table>

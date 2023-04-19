@@ -71,7 +71,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($items->unique('item_name') as $item)
+                            @foreach ($items as $item)
                                 <tr data-widget="expandable-table" aria-expanded="false" >
                                     <td>{{ $item->maker }}</td>
                                     <td>{{ $item['item_name'] }}</td>
@@ -90,7 +90,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($items as $detail)
+                                    @foreach ($details as $detail)
                                         <form method="POST" action="{{url('sell/add')}}">
                                         @csrf
                                         <tr>
@@ -112,7 +112,7 @@
                                 </tr>
                             @endforeach
                                 <tr>
-                                    <td colspan="5">{{ $items->links() }}</td>
+                                    <td colspan="5">{{ $items->appends(request()->query())->links() }}</td>
                                 </tr>
                         </tbody>
                     </table>

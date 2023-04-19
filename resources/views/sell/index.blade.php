@@ -192,8 +192,7 @@
                                     <th>単価</th>
                                     <th>足数</th>
                                     <th>追加日</th>
-                                    <th class="search">
-                                    </th>
+                                    <th class="search"></th>
                                 </tr>
                             </thead>
 

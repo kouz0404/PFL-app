@@ -52,6 +52,8 @@ Route::prefix('sell')->group(function () {
     Route::post('/myhistory/edit', [App\Http\Controllers\SellController::class, 'history_edit']);
     //Route::post('/goal', [App\Http\Controllers\SellController::class, 'goal']);
     Route::get('/sell_items/{id}', [App\Http\Controllers\SellController::class, 'sell_items']);
+    Route::get('/sell_items/delete/{id}', [App\Http\Controllers\SellController::class, 'delete_sell_items']);
+
 });
 
 Route::prefix('notice')->group(function () {

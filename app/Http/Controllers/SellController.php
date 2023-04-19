@@ -32,10 +32,10 @@ class SellController extends Controller
 
         // そのユーザーが売った商品一覧取得
         $sells = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDate('created_at', $today)->orderByDesc('created_at')
-        ->get();
+        ->paginate(10);
 
         $sells_m = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $month)->orderByDesc('created_at')
-        ->get();
+        ->paginate(10);
 
         $sells_y = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->orderByDesc('created_at')
         ->paginate(10);
@@ -118,8 +118,9 @@ class SellController extends Controller
         if ($request->isMethod('post')) {
             // バリデーション
             $this->validate($request, 
-            ['number' => 'required',],
-            ['number.required' => '数量は必須です',]); 
+            ['number' => 'required|regex:/^[0-9]+$/',],
+            ['number.required' => '数量は必須です',
+             'number.regex' => '数量は半角数字で入力してください',]); 
 
             // 商品登録
             Sell::create([
@@ -143,11 +144,13 @@ class SellController extends Controller
 
 
         // 商品一覧取得
-        $items = Item
+        $details = Item
         ::orderBy('maker', 'asc')
-        ->paginate(20);
+        ->get();
 
-        return view('sell.add', compact('items'));
+        $items = Item::select('maker','item_name')->orderBy('maker', 'asc')->distinct('item_name')->paginate(10);
+
+        return view('sell.add', compact('items','details'));
     }
 
     public function search(Request $request){
@@ -178,12 +181,15 @@ class SellController extends Controller
 
             }
 
-
-            $items = $query->paginate(10); //検索結果のユーザーを50件/ページで表示
+            $items = $query->select('maker','item_name')->distinct('item_name')->paginate(10); 
 
         }
 
-        return view('sell.add', compact('items','search'));
+        $details = Item
+        ::orderBy('maker', 'asc')
+        ->get();
+
+        return view('sell.add', compact('items','details','search'));
     }
 
 
@@ -193,20 +199,35 @@ class SellController extends Controller
     {
         if ($request->isMethod('post')) {
             //input type monthはdate型に直接入らないため、日を手動で追加
-             $request->merge([
-                'date' => $request->date.'-01',
-            ]);
-        
+
+   
             // バリデーション
             $this->validate($request, 
             ['goal' => 'required|regex:/^[0-9]+$/',
-             'date' => 'required|unique:goals',
+             'date' => 'required',
              'class' => 'required',],
             ['goal.required' => '金額は必須です',
             'goal.regex' => '金額は半角数字で入力してください',
             'date.required' => '年月は必須です',
-            'date.unique' => 'その月の目標は既に入力済みです',
             'class.required' => '区分は必須です',]); 
+
+            $request->merge([
+                'date' => $request->date.'-01',
+            ]);   
+
+            if($request->class == 0){
+            $this->validate($request, 
+            ['date' => Rule::unique('goals')->where(function ($query) {
+                return $query->where('class', 0);
+            })],
+            ['date.unique' => 'その月の目標は既に入力済みです',]); }
+
+            if($request->class == 1){
+            $this->validate($request, 
+            ['date' => Rule::unique('goals')->where(function ($query) {
+                return $query->where('class', 1);
+            })],
+            ['date.unique' => 'その月の目標は既に入力済みです',]); }
 
             $id=Auth::id();
 
@@ -314,7 +335,7 @@ class SellController extends Controller
 
         }elseif($id == 2){
 
-            // そのユーザーが売った商品一覧取得
+            // そのユーザーが売った月の商品一覧取得
             $sells = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->whereMonth('created_at', $month)->orderByDesc('created_at')
             ->paginate(10);
     
@@ -324,7 +345,7 @@ class SellController extends Controller
 
         }elseif($id == 3){
 
-            // そのユーザーが売った商品一覧取得
+            // そのユーザーが売った年間の商品一覧取得
             $sells = Sell::where('user_id', Auth::id())->whereYear('created_at', $year)->orderByDesc('created_at')
             ->with('item')->paginate(10);
 
@@ -335,6 +356,15 @@ class SellController extends Controller
 
     }
 
+    public function delete_sell_items(Request $request)
+    {
+        $id = $request->id;
+        $history_detail =Sell::find($id);
+        $history_detail->delete();
+
+        return redirect('sell');
+
+    }
 
 
 

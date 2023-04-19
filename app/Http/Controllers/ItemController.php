@@ -113,7 +113,7 @@ class ItemController extends Controller
             }
 
 
-            $items = $query->paginate(10); //検索結果のユーザーを50件/ページで表示
+            $items = $query->select('maker','item_name')->distinct('item_name')->paginate(10); //検索結果のユーザーを50件/ページで表示
 
         }
 

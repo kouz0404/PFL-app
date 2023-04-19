@@ -5,26 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sell extends Model
+class Notice extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'maker',
-        'item_name',
-        'number',
         'user_id',
-        'item_id',
-        'price',
+        'title',
+        'content',
     ];
 
     public function user()
     {
      return $this->belongsTo('App\Models\User');
-    }
-
-    public function Item()
-    {
-     return $this->belongsTo('App\Models\Item');
     }
 }

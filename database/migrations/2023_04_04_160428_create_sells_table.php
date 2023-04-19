@@ -16,12 +16,13 @@ class CreateSellsTable extends Migration
         Schema::create('sells', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('item_id')->unsigned();
+            $table->bigInteger('item_id');
             $table->integer('number')->index();
+            $table->string('maker', 100)->index();
+            $table->string('item_name', 100)->index();
             $table->integer('price')->index();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('item_id')->references('id')->on('items');
         });
     }
 

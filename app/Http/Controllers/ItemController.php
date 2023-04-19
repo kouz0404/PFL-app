@@ -24,8 +24,11 @@ class ItemController extends Controller
     public function index()
     {
         // 商品一覧取得
-        $items = Item
-        ::orderBy('maker', 'asc')->paginate(30);
+        //$items = Item::orderBy('maker', 'asc')->paginate(10);
+        $items = Item::select('maker','item_name')->orderBy('maker', 'asc')->distinct('item_name')->paginate(10);
+
+        //別ページに移植
+        //$less_items = Item::select('maker','item_name','stock','size')->paginate(5);
 
 
         return view('item.index', compact('items'));
@@ -43,15 +46,17 @@ class ItemController extends Controller
             'maker' => 'required',
             'item_name' => 'required',
             'size' => 'required',
-            'price' => 'required',
-            'stock' => 'required',
+            'price' => 'required|regex:/^[0-9]+$/',
+            'stock' => 'required|regex:/^[0-9]+$/',
             ],
             [
             'maker.required' => 'メーカーは必須です',
             'item_name.required' => '商品名は必須です',
             'size.required' => 'サイズは必須です',
             'price.required' => '値段は必須です',
+            'price.regex' => '値段は半角数字で入力してください',
             'stock.required' => '在庫数は必須です',
+            'stock.regex' => '在庫は半角数字で入力してください',
             ]); 
 
             if($request->has('item_image')){
@@ -108,7 +113,7 @@ class ItemController extends Controller
             }
 
 
-            $items = $query->paginate(10); //検索結果のユーザーを50件/ページで表示
+            $items = $query->select('maker','item_name')->distinct('item_name')->paginate(10); //検索結果のユーザーを50件/ページで表示
 
         }
 

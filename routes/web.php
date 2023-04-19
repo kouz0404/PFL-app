@@ -31,8 +31,13 @@ Route::prefix('items')->group(function () {
     Route::post('/edit', [App\Http\Controllers\EditController::class, 'edit']);
     Route::post('detail/delete/{id}', [App\Http\Controllers\EditController::class, 'delete']);
 });
+
+    Route::get('/less_items', [App\Http\Controllers\Less_itemController::class, 'index']);
+
+
 Route::get('/search', [App\Http\Controllers\ItemController::class, 'search'])->name('search');
 Route::get('/search/sell', [App\Http\Controllers\SellController::class, 'search'])->name('search');
+
 
 Route::prefix('sell')->group(function () {
     Route::get('/', [App\Http\Controllers\SellController::class, 'index']);
@@ -40,5 +45,28 @@ Route::prefix('sell')->group(function () {
     Route::post('/add', [App\Http\Controllers\SellController::class, 'add']);
     Route::get('/goal', [App\Http\Controllers\SellController::class, 'goal']);
     Route::post('/goal', [App\Http\Controllers\SellController::class, 'goal']);
+    Route::get('/myhistory', [App\Http\Controllers\SellController::class, 'history']);
+    Route::get('/allhistory', [App\Http\Controllers\SellController::class, 'allhistory']);
+    Route::get('/myhistory/edit/{id}', [App\Http\Controllers\SellController::class, 'history_edit']);
+    Route::get('/myhistory/delete/{id}', [App\Http\Controllers\SellController::class, 'delete']);
+    Route::post('/myhistory/edit', [App\Http\Controllers\SellController::class, 'history_edit']);
+    //Route::post('/goal', [App\Http\Controllers\SellController::class, 'goal']);
     Route::get('/sell_items/{id}', [App\Http\Controllers\SellController::class, 'sell_items']);
+    Route::get('/sell_items/delete/{id}', [App\Http\Controllers\SellController::class, 'delete_sell_items']);
+
 });
+
+Route::prefix('notice')->group(function () {
+    Route::get('/', [App\Http\Controllers\NoticeController::class, 'index']);
+    Route::post('/', [App\Http\Controllers\NoticeController::class, 'add']);
+    Route::get('/list/{id}', [App\Http\Controllers\NoticeController::class, 'list']);
+    Route::get('/list/delete/{id}', [App\Http\Controllers\NoticeController::class, 'delete']);   
+    Route::get('/list/edit/{id}', [App\Http\Controllers\NoticeController::class, 'edit']);
+    Route::post('/list/edit/{id}', [App\Http\Controllers\NoticeController::class, 'edit']);
+});
+
+
+
+
+
+

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', '売上目標登録')
+@section('title', 'お知らせ編集')
 
 @section('content_header')
-    <h1>売上目標</h1>
+    <h1>お知らせ編集</h1>
 @stop
 
 @section('content')
@@ -27,23 +27,13 @@
                     <div class="card-body">
 
                         <div class="form-group">
-                            <label for="goal">目標金額</label>
-                            <input type="text" class="form-control" id="goal" name="goal" placeholder="目標金額">
+                            <label for="goal">タイトル</label>
+                            <input type="text" class="form-control" id="title" name="title" value="{{$notice->title}}">
                         </div>
 
                         <div class="form-group">
-                            <label for="date">目標年月</label>
-                            <input type="month" class="form-control" id="date" name="date">
-                        </div>
-                        
-
-                        <div class="form-group">
-                            <label for="class">区分</label>
-                            <select class="form-control" id="class" name="class" >
-                                <option hidden hidden value="">区分</option>
-                                <option value="0">店舗</option>
-                                <option value="1">個人</option>
-                            </select>
+                            <label for="date">内容</label>
+                            <textarea class="form-control" id="content" name="content">{{$notice->content}}</textarea>
                         </div>
 
                     </div>

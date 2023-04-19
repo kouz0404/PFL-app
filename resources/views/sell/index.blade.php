@@ -31,6 +31,9 @@
         <h3 class="card-title">個人売上</h3>
             <div class="card-tools">
                 <div class="input-group input-group-sm">
+                    <div class="input-group-append mx-1">
+                        <a href="{{ url('sell/myhistory') }}" class="btn btn-default">履歴</a>
+                    </div>
                     <div class="input-group-append">
                         <a href="{{ url('sell/goal') }}" class="btn btn-default">売上目標登録</a>
                     </div>
@@ -50,12 +53,12 @@
             datasets: [{
                 label: '個人売上（円）',
                 data: [ <?php echo $proceeds_2m;?> , <?php echo $proceeds_1m;?>, <?php echo $proceeds_m;?>,],
-                backgroundColor: 'rgb(0,123,255)',
+                backgroundColor: 'rgba(0,123,255,0.5)',
                 
             },{
                 label: '目標売上（円）',
                 data: [ <?php echo $own_goal_2m;?> , <?php echo $own_goal_1m;?>, <?php echo $own_goal_m;?>,],
-                backgroundColor: 'red',
+                backgroundColor: 'rgba(255,0,0,0.5)',
                 
             }]
         },
@@ -66,7 +69,11 @@
                 ticks: {
                     beginAtZero: true
                 }
-            }]
+            }],           
+             xAxes: [{
+               categoryPercentage: 0.5, 
+               barPercentage: 0.5,      
+                   }]
         }
         }
     });
@@ -80,6 +87,9 @@
         <h3 class="card-title">店舗売上</h3>
             <div class="card-tools">
                 <div class="input-group input-group-sm">
+                    <div class="input-group-append mx-1">
+                        <a href="{{ url('sell/allhistory') }}" class="btn btn-default">履歴</a>
+                    </div>
                     <div class="input-group-append">
                         <a href="{{ url('sell/goal') }}" class="btn btn-default">売上目標登録</a>
                     </div>
@@ -100,12 +110,12 @@
             datasets: [{
                 label: '店舗売上（円）',
                 data: [ <?php echo $all_proceeds_2m;?> , <?php echo $all_proceeds_1m;?>, <?php echo $all_proceeds_m;?>,],
-                backgroundColor: 'rgb(0,123,255)',
+                backgroundColor: 'rgba(0,123,255,0.5)',
                 
             },{
                 label: '店舗目標売上（円）',
                 data: [ <?php echo $all_goal_2m;?> , <?php echo $all_goal_1m;?>, <?php echo $all_goal_m;?>,],
-                backgroundColor: 'red',
+                backgroundColor: 'rgba(255,0,0,0.5)',
                 
             }]
         },
@@ -113,10 +123,14 @@
   
             scales: {
             yAxes: [{
-                ticks: {
+                    ticks: {
                     beginAtZero: true
-                }
-            }]
+                            }
+                    }],
+            xAxes: [{
+               categoryPercentage: 0.5, 
+               barPercentage: 0.5,      
+                   }]
         }
         }
     });
@@ -128,14 +142,6 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">販売した商品　(最新10件)</h3>
-                    
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm">
-                            <div class="input-group-append">
-                                <a href="{{ url('items/add') }}" class="btn btn-default">商品登録</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="tab-wrap">
@@ -159,12 +165,12 @@
                             <tbody>
                                 @foreach ($sells as $sell)
                                     <tr>
-                                        <td>{{ $sell->item->maker }}</td>
-                                        <td>{{ $sell->item->item_name }}</td>
-                                        <td>{{ $sell->item->price}}円</td>
+                                        <td>{{ $sell->maker }}</td>
+                                        <td>{{ $sell->item_name }}</td>
+                                        <td>{{ $sell->price}}円</td>
                                         <td>{{ $sell->number}}</td>
                                         <td>{{ $sell->created_at->format('Y-m-d')}}</td>
-                                        <td><a href="items/detail/{{$sell->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                        <td><a href="items/detail/{{$sell->item_name}}" class="btn btn-default">詳細画面</a></td>
                                     </tr>
                                 @endforeach
                                 <tr>
@@ -186,20 +192,19 @@
                                     <th>単価</th>
                                     <th>足数</th>
                                     <th>追加日</th>
-                                    <th class="search">
-                                    </th>
+                                    <th class="search"></th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 @foreach ($sells_m as $sell_m)
                                     <tr>
-                                        <td>{{ $sell_m->item->maker }}</td>
-                                        <td>{{ $sell_m->item->item_name }}</td>
-                                        <td>{{ $sell_m->item->price}}円</td>
+                                        <td>{{ $sell_m->maker }}</td>
+                                        <td>{{ $sell_m->item_name }}</td>
+                                        <td>{{ $sell_m->price}}円</td>
                                         <td>{{ $sell_m->number}}</td>
                                         <td>{{$sell_m->created_at->format('Y-m-d')}}</td>
-                                        <td><a href="items/detail/{{$sell_m->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                        <td><a href="items/detail/{{$sell_m->item_name}}" class="btn btn-default">詳細画面</a></td>
                                     </tr>
                                 @endforeach
                                 <tr>
@@ -228,12 +233,12 @@
                             <tbody>
                                 @foreach ($sells_y as $sell_y)
                                     <tr>
-                                        <td>{{ $sell_y->item->maker }}</td>
-                                        <td>{{ $sell_y->item->item_name }}</td>
-                                        <td>{{ $sell_y->item->price}}円</td>
+                                        <td>{{ $sell_y->maker }}</td>
+                                        <td>{{ $sell_y->item_name }}</td>
+                                        <td>{{ $sell_y->price}}円</td>
                                         <td>{{ $sell_y->number}}</td>
                                         <td>{{$sell_y->created_at->format('Y-m-d')}}</td>
-                                        <td><a href="items/detail/{{$sell_y->item->item_name}}" class="btn btn-default">詳細画面</a></td>
+                                        <td><a href="items/detail/{{$sell_y->item_name}}" class="btn btn-default">詳細画面</a></td>
                                     </tr>
                                 @endforeach
                                 <tr>

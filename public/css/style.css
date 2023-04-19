@@ -1,3 +1,10 @@
+
+.icon{
+  height: 30px;
+  margin-right: 10px;
+}
+
+
 .form-control-img {
   display: block;
   width: 100%;
@@ -57,3 +64,40 @@
 .tab-switch {
     display: none;
 }
+
+.pagination {
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+}
+
+/*スマホのみ*/
+.cardheder-smartphone{
+  display: none;
+}
+
+.card-tools-sm{
+  display: none;
+}
+
+
+
+@media screen and (max-width: 600px) {
+.search{
+  display: none;
+}
+
+.cardheder-smartphone{
+  display: block;
+}
+
+.card-tools-sm{
+  display: block;
+}
+
+    }
+
+

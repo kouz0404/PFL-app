@@ -3,7 +3,7 @@
 @section('title', '売上目標登録')
 
 @section('content_header')
-    <h1>売上目標</h1>
+    <h1>売上目標編集</h1>
 @stop
 
 @section('content')
@@ -19,32 +19,36 @@
                     </ul>
                 </div>
             @endif
-            
 
             <div class="card card-primary">
-                <form method="POST" enctype="multipart/form-data">
+                <form method="POST" action="{{url('sell/myhistory/edit')}}"  enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
 
                         <div class="form-group">
                             <label for="goal">目標金額</label>
-                            <input type="text" class="form-control" id="goal" name="goal" placeholder="目標金額">
+                            <input type="text" class="form-control" id="goal" name="goal" placeholder="目標金額" value="{{$history_detail->goal}}">
                         </div>
 
                         <div class="form-group">
                             <label for="date">目標年月</label>
-                            <input type="month" class="form-control" id="date" name="date">
+                            <input type="month" class="form-control" id="date" name="date" value="{{ \Carbon\Carbon::parse($history_detail->date)->format('Y-m') }}" readonly>
                         </div>
                         
 
                         <div class="form-group">
                             <label for="class">区分</label>
-                            <select class="form-control" id="class" name="class" >
-                                <option hidden hidden value="">区分</option>
-                                <option value="0">店舗</option>
-                                <option value="1">個人</option>
+                            <select class="form-control" id="class" name="class" readonly >
+                                @if($history_detail->class === 1)
+                                <option hidden  >個人</option>
+                                @elseif($history_detail->class === 0)
+                                <option hidden  >店舗</option>
+                                @endif
+
                             </select>
                         </div>
+
+                        <input type="hidden" class="form-control" id="id" name="id"  value="{{$history_detail->id}}">
 
                     </div>
 

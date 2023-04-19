@@ -8,18 +8,25 @@ use App\Models\Item;
 
 class EditController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function edit(Request $request)
     {
         // POSTリクエストのとき
         if ($request->isMethod('post')) {
             // バリデーション
             $this->validate($request, [
-                'price' => 'required',
-                'stock' => 'required',
+                'price' => 'required|regex:/^[0-9]+$/',
+                'stock' => 'required|regex:/^[0-9]+$/',
                 ],
                 [
                 'price.required' => '値段は必須です',
+                'price.regex' => '値段は半角数字で入力してください',
                 'stock.required' => '在庫数は必須です',
+                'stock.regex' => '在庫は半角数字で入力してください',
                 ]);
 
             if($request->has('item_image')){

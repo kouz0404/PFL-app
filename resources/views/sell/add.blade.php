@@ -37,6 +37,21 @@
                         </div>
                     </div>
                 </div>
+
+                <!--スマホ用の検索窓-->
+                <div class="card-header-sm m-1">
+                    <div class="card-tools-sm">
+                        <form method="GET" action="{{url('search/sell')}}">
+                            <div class="input-group">
+                                <input type="text" id="txt-search" class="form-control input-group-prepend" name="search" placeholder="検索ワード"></input>
+                                <span class="input-group-btn input-group-append">
+                                <button type="submit" id="btn-search" class="btn btn-primary"><i class="fas fa-search"></i> 検索</buttom>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
@@ -56,7 +71,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($items->unique('item_name') as $item)
+                            @foreach ($items as $item)
                                 <tr data-widget="expandable-table" aria-expanded="false" >
                                     <td>{{ $item->maker }}</td>
                                     <td>{{ $item['item_name'] }}</td>
@@ -75,26 +90,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($items as $detail)
+                                    @foreach ($details as $detail)
                                         <form method="POST" action="{{url('sell/add')}}">
                                         @csrf
                                         <tr>
                                         @if ($detail['item_name'] === $item['item_name'])   
                                         <td>{{$detail->size}}</td>
                                         <td><input type="hidden" class="form-control w-25" id="number" name="price" value="{{$detail->price}}" placeholder="数量">{{$detail->price}}</td>
-                                        <td><input type="text" class="form-control w-25" id="number" name="number" placeholder="数量"></td>
+                                        <td><input type="text" class="form-control w-60" id="number" name="number" placeholder="数量"></td>
                                         <td><input type="hidden" name="item_id" value="{{$detail->id}}"></td>
+                                        <td><input type="hidden" name="maker" value="{{$detail->maker}}"></td>
+                                        <td><input type="hidden" name="item_name" value="{{$detail->item_name}}"></td>
                                         <td><button class="btn btn-primary" type="submit">登録</button></td>
                                     @endif
                                         </form>
                                         </tr>
-                                    @endforeach
-                                        
+                                    @endforeach                                      
                                     </tbody>
                                     </table>
                                 </td>
                                 </tr>
                             @endforeach
+                                <tr>
+                                    <td colspan="5">{{ $items->appends(request()->query())->links() }}</td>
+                                </tr>
                         </tbody>
                     </table>
                 </div>

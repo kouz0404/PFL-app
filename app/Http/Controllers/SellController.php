@@ -145,7 +145,7 @@ class SellController extends Controller
 
         // 商品一覧取得
         $details = Item
-        ::orderBy('maker', 'asc')
+        ::orderBy('size', 'asc')
         ->get();
 
         $items = Item::select('maker','item_name')->orderBy('maker', 'asc')->distinct('item_name')->paginate(10);

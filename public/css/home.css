@@ -270,7 +270,7 @@
         opacity : 1;
       }
 
- @media screen and (max-width: 400px) {
+ @media screen and (max-width: 600px) {
     .tool{
         width: 50%;
         padding-left: 10px;

@@ -256,14 +256,17 @@ class SellController extends Controller
     public function history(Request $request)
     {
         $historys =Goal::where('class',1)->where('user_id',Auth::id())->orderByDesc('date')->paginate(3);
-        return view('sell.history', compact('historys'));
+        $class='個人';
+        return view('sell.history', compact('historys','class'));
+        
     }
 
     //個人売上目標の一覧表示
     public function allhistory(Request $request)
     {
         $historys =Goal::where('class',0)->orderByDesc('date')->paginate(3);
-        return view('sell.history', compact('historys'));
+        $class='店舗';
+        return view('sell.history', compact('historys','class'));
     }
 
         //売上目標の編集削除

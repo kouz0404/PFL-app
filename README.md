@@ -1,35 +1,37 @@
-## 商品管理システム
+# SneakerCheck（商品管理アプリ）
 
-### 環境構築手順
+## アプリ概要
+こちらのアプリでは、靴屋の店舗の営業をより円滑に行えるような機能をご提供しております。
+商品の在庫管理、在庫の検索、売上の管理、従業員同士のお知らせ機能が実装されています。
+直感的に使いやすいようなシンプルなUIにまとめております。追加機能なども、ご要望があれば簡単に実装できます。
 
-* Gitクローン
-* .env.example をコピーして .env を作成
-* MySQLかPostgreSQLのデータベース作成（名前：item_management）  
-  ローカルでMAMPを使用しているのであれば、MySQL推奨
-* .env にデータベース接続情報追加
-```
-例）
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=item_management
-DB_USERNAME=root
-DB_PASSWORD=root
-```
-* APP_KEY生成
-```
-$ php artisan key:generate
-```
-* Composerインストール
-```
-$ composer install
-```
-* フロント環境構築
-```
-$ npm install
-$ npm run dev
-```
-* マイグレーション
-```
-$ php artisan migrate
-```
+## 機能概要
+- ログイン機能
+- お知らせ機能
+- 商品登録機能
+- 在庫管理機能
+- 商品検索機能
+- 販売、売上管理機能
+- 売上目標管理機能
+
+## 開発環境
+- php 8.2.1
+- Laravel Framework 8.83.27
+- MySQL 5.6.50
+
+## 設計書
+- [設計書ページへ](https://drive.google.com/drive/folders/1638NklHFcP9lDtsyz3mxuL_U8mfv9TaW?usp=share_link)
+
+## システム閲覧
+- [システム閲覧](https://sneakercheck.herokuapp.com/)
+### テストアカウント
+- メールアドレス/test1@test
+- パスワード/12345678
+
+
+
+
+
+
+
+

@@ -23,7 +23,7 @@
             @foreach($items as $item)
             <div class="col">
                 <div class="card">
-                    <img src="/storage/{{$item->item_image}}" alt="画像は登録されていません" class="card-img-top-style" alt="...">
+                    <img src="{{$item->item_image}}" alt="画像は登録されていません" class="card-img-top-style" alt="...">
                     <div class="card-body">
                         <label for="maker">メーカー</label>
                         <p class="card-text">{{$item->maker}}</p>

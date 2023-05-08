@@ -60,7 +60,7 @@
                         <div class="form-group">
                             <label for="item_image">商品画像</label>
                             <div class="form-control-img">
-                            <input type="file" class="" id="inputFile" value="{{$item->item_image}}" name="item_image">
+                            <input type="file" class="" id="inputFile" name="item_image">
                             </div>
                         </div>
 

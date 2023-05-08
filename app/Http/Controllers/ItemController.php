@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
+use Storage;
 
 class ItemController extends Controller
 {
@@ -60,11 +61,18 @@ class ItemController extends Controller
             ]); 
 
             if($request->has('item_image')){
-            $image_extension = $request->file('item_image')->getClientOriginalExtension();
-            $path = $request->item_name.'_'.date('YmdHis').'.'.$image_extension;
-            $request->file('item_image')->storeAS('',$path,'public');
+                //ローカル用の設定
+           // $image_extension = $request->file('item_image')->getClientOriginalExtension();
+            //$path = $request->item_name.'_'.date('YmdHis').'.'.$image_extension;
+            //$request->file('item_image')->storeAS('',$path,'public');
+
+            //AWSの設定
+            $image_name =$request->file('item_image');
+            $path = Storage::disk('s3')->putFile('myprefix', $image_name, 'public');
+            // アップロードした画像のフルパスを取得
+            $image_path = Storage::disk('s3')->url($path);
             }else{
-            $path = null;
+            $image_path = null;
             }
             // 商品登録
             Item::create([
@@ -74,7 +82,7 @@ class ItemController extends Controller
                 'price' => $request->price,
                 'stock' => $request->stock,
                 'remarks' => $request->remarks,
-                'item_image' => $path,
+                'item_image' => $image_path,
             ]);
 
             return redirect('/items');

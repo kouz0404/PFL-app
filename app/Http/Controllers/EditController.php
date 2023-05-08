@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
+use Storage;
 
 class EditController extends Controller
 {
@@ -30,9 +31,16 @@ class EditController extends Controller
                 ]);
 
             if($request->has('item_image')){
-                $image_extension = $request->file('item_image')->getClientOriginalExtension();
-                $path = $request->item_name.'_'.date('YmdHis').'.'.$image_extension;
-                $request->file('item_image')->storeAS('',$path,'public');
+                //ローカルでの設定
+                //$image_extension = $request->file('item_image')->getClientOriginalExtension();
+                //$path = $request->item_name.'_'.date('YmdHis').'.'.$image_extension;
+                //$request->file('item_image')->storeAS('',$path,'public');
+
+            //AWS用の設定
+            $image_name =$request->file('item_image');
+            $path = Storage::disk('s3')->putFile('myprefix', $image_name, 'public');
+            // アップロードした画像のフルパスを取得
+            $image_path = Storage::disk('s3')->url($path);
 
             // 商品編集
             $items = Item::find($request->id);
@@ -42,7 +50,7 @@ class EditController extends Controller
             $items->price = $request->price;
             $items->stock = $request->stock;
             $items->remarks = $request->remarks;
-            $items->item_image = $path;
+            $items->item_image = $image_path;
             $items->save();
             }else{
                
